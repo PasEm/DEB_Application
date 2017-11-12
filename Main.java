@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -26,9 +27,12 @@ import javafx.util.Duration;
 public class Main extends Application {
 
     @Override
+
+/////000000000000000000000000000000000000000000000000000000000000000000000000000000
+
     public void start(Stage primaryStage) throws Exception{
         Pane root = new Pane();
-        Image image = new Image(getClass().getResourceAsStream("S05KA3351.jpg")); //вставка картинки на фон
+        Image image = new Image(getClass().getResourceAsStream("deb.jpg")); //вставка картинки на фон
         ImageView img = new ImageView(image);
         img.setTranslateX(60);
         img.setFitWidth(1800);
@@ -65,27 +69,44 @@ public class Main extends Application {
 
         Label reference = new Label("Описание игры, помощь и прочее");
         MenuItem helpPageBack = new MenuItem("Назад");
-        TextMenu helpPage = new TextMenu(reference, helpPageBack);
+        SubMenu helpPage = new SubMenu(reference, helpPageBack);
 
-        Label authors = new Label("В разработке игры участвовали:\nБулат Каюмов\nЭмиль Пашаев\nДиляра Мухамедшина");
+        Label authors = new Label("В разработке игры участвовали:\nБулат Каюмов\nЭмиль Пашаев\nКакая-то красотка");
         MenuItem creditsPageBack = new MenuItem("Назад");
-        TextMenu creditsPage = new TextMenu(authors, creditsPageBack);
+        SubMenu creditsPage = new SubMenu(authors, creditsPageBack);
+
+        Label exitAsk = new Label("Вы уверены, что хотите выйти?");
+        MenuItem exitYes = new MenuItem("Да");
+        MenuItem exitNo = new MenuItem("Нет");
+        SubMenu exitPage = new SubMenu(exitAsk, exitYes, exitNo);
+
+        Label enterPlayer = new Label("Введите имя игрока");
+        TextField enterName = new TextField("Player1");
+        enterName.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+        enterName.setMinHeight(90);
+        MenuItemSmall backToNumberOfPlayers = new MenuItemSmall("Назад");
+        MenuItemSmall enter = new MenuItemSmall("Ввод");
+        SubMenu enterPlayerName = new SubMenu(enterPlayer, enterName, backToNumberOfPlayers, enter);
 
         MenuBox menubox = new MenuBox(mainmenu);
 
         startgame.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));// переключение между пунктами меню (см. SetSubMenu)
-        exitgame.setOnMouseClicked(event -> System.exit(0));
+        exitgame.setOnMouseClicked(event -> menubox.setSubMenu(exitPage));
+        exitYes.setOnMouseClicked(event -> System.exit(0));
+        exitNo.setOnMouseClicked(event -> menubox.setSubMenu(mainmenu));
         backToMainMenu.setOnMouseClicked(event -> menubox.setSubMenu(mainmenu));
-        help.setOnMouseClicked(event -> menubox.setSubMenuToTextMenu(helpPage));
-        credits.setOnMouseClicked(event -> menubox.setSubMenuToTextMenu(creditsPage));
-        helpPageBack.setOnMouseClicked(event -> menubox.setTextMenuToSubmenu(mainmenu));
-        creditsPageBack.setOnMouseClicked(event -> menubox.setTextMenuToSubmenu(mainmenu));
+        help.setOnMouseClicked(event -> menubox.setSubMenu(helpPage));
+        credits.setOnMouseClicked(event -> menubox.setSubMenu(creditsPage));
+        helpPageBack.setOnMouseClicked(event -> menubox.setSubMenu(mainmenu));
+        creditsPageBack.setOnMouseClicked(event -> menubox.setSubMenu(mainmenu));
+        singleplay.setOnMouseClicked(event -> menubox.setSubMenu(enterPlayerName));
+        backToNumberOfPlayers.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers  ));
 
         root.getChildren().addAll(menubox);
 
         Label name = new Label();
-        name.setText("Name of Game");// текст
-        name.setTranslateX(450);// координты текста
+        name.setText("D  E  B");// текст
+        name.setTranslateX(700);// координты текста
         name.setTranslateY(120);
         name.setFont(Font.font("Showcard gothic", FontWeight.BOLD, 150)); // шрифт и размер шрифта
         name.setTextFill(Color.DARKGOLDENROD);
@@ -108,7 +129,6 @@ public class Main extends Application {
                     ft.setToValue(0);
                     ft.setOnFinished(evt ->   menubox.setVisible(false));
                     ft.play();
-
                 }
             }
         });
@@ -118,6 +138,44 @@ public class Main extends Application {
         primaryStage.setTitle("DEB"); // задаем заголовок окна
         primaryStage.setScene(scene);
         primaryStage.show(); // запускаем окно
+    }
+
+    public class Player{
+        private int count = 0;
+        private StringBuffer name;
+        private int score;
+
+        public Player (StringBuffer name){
+            setName(name);
+            this.name = name;
+            this.score = 0;
+            count++;
+        }
+
+        public void setName(StringBuffer name) {
+            if (name.length() > 30){
+                name.delete(31, name.length());
+            }
+            for (int i = 0; i < name.length(); i++){
+                char c = name.charAt(i);
+                if (c == ' '){
+                    name.deleteCharAt(i);
+                    i--;
+                }
+            }
+            if (name.length() == 0){
+                name.append("Player").append(count);
+            }
+            this.name = name;
+        }
+
+        public int getScore() {
+            return score;
+        }
+
+        public StringBuffer getName() {
+            return name;
+        }
     }
 
     private static class MenuItem extends StackPane{ //пункт меню (кнопка)
@@ -148,7 +206,6 @@ public class Main extends Application {
 
     public static class MenuBox extends Pane{//панель меню
         static SubMenu submenu;
-        static TextMenu textmenu; // пробую с текстменю
         public MenuBox(SubMenu submenu) {
             MenuBox.submenu = submenu;
 
@@ -157,20 +214,11 @@ public class Main extends Application {
             bq.setOpacity(0.4);// прозрачность
             getChildren().addAll(bq, submenu);
         }
+
             public void setSubMenu(SubMenu submenu){ // переключение между пунктами меню
                 getChildren().remove(MenuBox.submenu);
                 MenuBox.submenu = submenu;
                 getChildren().add(MenuBox.submenu);
-        }
-            public void setSubMenuToTextMenu(TextMenu textmenu){
-                getChildren().remove(MenuBox.submenu);
-                MenuBox.textmenu = textmenu;
-                getChildren().add(MenuBox.textmenu);
-            }
-            public void setTextMenuToSubmenu(SubMenu submenu){ // переключение между пунктами меню
-            getChildren().remove(MenuBox.textmenu);
-            MenuBox.submenu = submenu;
-            getChildren().add(MenuBox.submenu);
         }
     }
 
@@ -183,10 +231,7 @@ public class Main extends Application {
                 getChildren().addAll(item);
             }
         }
-    }
-
-    public static class TextMenu extends VBox{ // Текстовые страницы + кнопка Назад
-        public TextMenu(Label text, MenuItem item){
+        public SubMenu(Label text, MenuItem...items){
             setSpacing(30);
             setTranslateX(510);
             setTranslateY(400);
@@ -194,7 +239,51 @@ public class Main extends Application {
             text.setTextFill(Color.DARKGOLDENROD);
             text.setMaxWidth(1000);
             text.setWrapText(true);
-            getChildren().addAll(text, item);
+            getChildren().addAll(text);
+            for (MenuItem item : items) {
+                getChildren().addAll(item);
+            }
+        }
+        public SubMenu(Label text, TextField field, MenuItemSmall...items){
+            HBox box = new HBox();
+            setSpacing(30);
+            setTranslateX(510);
+            setTranslateY(400);
+            text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
+            text.setTextFill(Color.DARKGOLDENROD);
+            text.setMaxWidth(1000);
+            text.setWrapText(true);
+            box.setSpacing(30);
+            getChildren().addAll(text, field, box);
+            for(MenuItemSmall item : items) {
+                box.getChildren().addAll(item);
+            }
+        }
+    }
+
+    private static class MenuItemSmall extends StackPane{ // (кнопка Ввод, возможно, в будущем, еще какая-нибудь)
+        public MenuItemSmall(String name){
+            Rectangle bq = new Rectangle(435, 90, Color.WHITE); // размер и цвет пункта
+            bq.setOpacity(0.5); // прозрачность
+
+            Text text = new Text(name); // текст
+            text.setFill(Color.WHITE); // цвет текста
+            text.setFont(Font.font("Arial", FontWeight.BOLD, 50)); // шрифт, параметр(не обязательно, в данном случае - жирный), размер
+
+            setAlignment(Pos.CENTER); //расположение
+            getChildren().addAll(bq, text);
+            FillTransition st = new FillTransition(Duration.seconds(0.5), bq); //при наведение мыши меняет цвет. Так же в скобках указывается время смены цвета
+            setOnMouseEntered(event -> {
+                st.setFromValue(Color.DARKGREY);
+                st.setToValue(Color.DARKGOLDENROD);
+                st.setCycleCount(Animation.INDEFINITE);
+                st.setAutoReverse(true); //постоянно меняет и обратно
+                st.play();
+            });
+            setOnMouseExited(event -> { //если убрать мышь, то придет в изначальное состояние
+                st.stop();
+                bq.setFill(Color.WHITE);
+            });
         }
     }
 
