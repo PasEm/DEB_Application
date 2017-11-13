@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.util.Map;
 
 public class Score {
-    private Player[] players;
+    public Player[] players;
     private int playerCount;
 
     public Score(int playerCount){
@@ -20,11 +20,12 @@ public class Score {
 
     public void initPlayer(String name){
         Player player = new Player(name, 1);
+        players[0] = player;
     }
 
     public void checkAnswer(Player player, String answer, Image im){
         Answers maps = new Answers();
-        for (Map.Entry<Object, String> map : maps.answer.entrySet()){
+        for (Map.Entry<Image, String> map : maps.answer.entrySet()){
             if (map.getKey().equals(im) && map.getValue().equals(answer)){
                 player.updateScore();
             }
@@ -32,3 +33,5 @@ public class Score {
     }
 
 }
+
+

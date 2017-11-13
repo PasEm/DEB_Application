@@ -1,5 +1,6 @@
 package sample;
 
+import DataBase.Answers;
 import DataBase.Score;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -76,12 +77,10 @@ public class Main extends Application {
         /////////////////////////////////////////////////////
 
         Label reference = new Label("Описание игры, помощь и прочее");
-        MenuItem helpPageBack = new MenuItem("Назад");
-        SubMenu helpPage = new SubMenu(reference, helpPageBack);
+        SubMenu helpPage = new SubMenu(reference, backToMainMenu);
 
         Label authors = new Label("В разработке игры участвовали:\nБулат Каюмов\nЭмиль Пашаев\nКакая-то красотка");
-        MenuItem creditsPageBack = new MenuItem("Назад");
-        SubMenu creditsPage = new SubMenu(authors, creditsPageBack);
+        SubMenu creditsPage = new SubMenu(authors, backToMainMenu);
 
         Label exitAsk = new Label("Вы уверены, что хотите выйти?");
         MenuItem exitYes = new MenuItem("Да");
@@ -96,16 +95,13 @@ public class Main extends Application {
         MenuItemSmall enter = new MenuItemSmall("Ввод");
         SubMenu enterPlayerName = new SubMenu(enterPlayer, enterName, backToNumberOfPlayers, enter);
 
+        MenuItem goMenu = new MenuItem("Выход в главное меню");
+
         ///////////////////////////////
 
-        Image question1 = new Image(getClass().getResourceAsStream("Геометрия.png"));
-        Image question2 = new Image(getClass().getResourceAsStream("География.png"));
-        Image question3 = new Image(getClass().getResourceAsStream("Русский Язык.png"));
-        Image question4 = new Image(getClass().getResourceAsStream("Рисование.png"));
-        Image question5 = new Image(getClass().getResourceAsStream("История.png"));
+        Answers data = new Answers();
         TextField input = new TextField();
         MenuItemSmall enterInput = new MenuItemSmall("Ввод ответа");
-        SubMenu gamePage = new SubMenu(question1, input, enterInput);
 
         /////////////////////
 
@@ -118,15 +114,27 @@ public class Main extends Application {
         backToMainMenu.setOnMouseClicked(event -> menubox.setSubMenu(mainmenu));
         help.setOnMouseClicked(event -> menubox.setSubMenu(helpPage));
         credits.setOnMouseClicked(event -> menubox.setSubMenu(creditsPage));
-        helpPageBack.setOnMouseClicked(event -> menubox.setSubMenu(mainmenu));
-        creditsPageBack.setOnMouseClicked(event -> menubox.setSubMenu(mainmenu));
+        goMenu.setOnMouseClicked(event1 -> menubox.setSubMenu(mainmenu));
         singleplay.setOnMouseClicked(event -> menubox.setSubMenu(enterPlayerName));
-        backToNumberOfPlayers.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers  ));
+        backToNumberOfPlayers.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
         enter.setOnMouseClicked(event ->
                 {
                     Score result = new Score(1);
                     result.initPlayer(enterName.getText());
-                    menubox.setSubMenu(gamePage);
+                    for (Map.Entry<Image, String> question : data.answer.entrySet())
+                    {
+                        SubMenu gamePage = new SubMenu(question.getKey(), input, enterInput);
+                        menubox.setSubMenu(gamePage);
+                        enterInput.setOnMouseClicked(event1 -> menubox.setSubMenu(gamePage));
+                    }
+                    enterInput.setOnMouseClicked(ent -> {
+                        Label  resultLabel = new Label();
+                        String output = result.players[0].getName() + ", ваш результат: ";
+                        output += (char) (result.players[0].getScore() + '0');
+                        resultLabel.setText(output);
+                        SubMenu resultPage = new SubMenu(resultLabel,goMenu);
+                        menubox.setSubMenu(resultPage);
+                    });
                 }
         );
         multiplay.setOnMouseClicked(event -> menubox.setSubMenu(enterPlayerName));
@@ -269,6 +277,10 @@ public class Main extends Application {
             vbox.setSpacing(60);
             vbox.getChildren().addAll(view, hbox);
             getChildren().addAll(vbox);
+        }
+
+        public SubMenu(Label result, MenuItemSmall end){
+            result.setText("lkkef");
         }
     }
 

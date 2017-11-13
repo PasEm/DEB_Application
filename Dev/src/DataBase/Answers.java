@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.util.LinkedHashMap;
 
 public class Answers {
-    LinkedHashMap<Object, String> answer = new LinkedHashMap<>();
+    public LinkedHashMap<Image, String> answer = new LinkedHashMap<>();
     public Answers(){
         Image im1 = new Image(getClass().getResourceAsStream("География.png"));
         Image im2 = new Image(getClass().getResourceAsStream("Геометрия.png"));
