@@ -1,0 +1,72 @@
+int i = 0;
+            Iterator<Image> question = data.answer.keySet().iterator();
+            while(question.hasNext()) {
+                i++;
+                MenuItem firstEnterInput = new MenuItem("Ввод ответа");
+                    TextField firstInput = new TextField("Введите ваш ответ");
+                    Image firstQuestionImage = question.next();
+                    SubMenu firstGamePage = new SubMenu(firstQuestionImage, firstInput, firstEnterInput);
+                if (i % 2 == 1) {
+                    i++;
+                    menubox.setSubMenu(firstGamePage);
+                    result.checkAnswer(data, firstInput.getText(), firstQuestionImage);
+                    firstEnterInput.setOnMouseClicked(event1 -> {
+                        MenuItem enterInput = new MenuItem("Ввод ответа");
+                        TextField input = new TextField("Введите ваш ответ");
+                        Image questionImage = question.next();
+                        SubMenu gamePage = new SubMenu(questionImage, input, enterInput);
+                        menubox.setSubMenu(gamePage);
+                        result.checkAnswer(data, input.getText(), questionImage);
+                        enterInput.setOnMouseClicked(event2 -> menubox.setSubMenu(gamePage));
+                    });
+                }
+                final int index = i;
+                if (index == data.answer.size()){
+                    Label resultLabel = new Label(result.getWinner());
+                    SubMenu resultPage = new SubMenu(resultLabel, goMenu);
+                    enterInput.setOnMouseClicked(event3 -> menubox.setSubMenu(resultPage));
+                }
+            }
+
+
+
+
+
+MenuItem enterInput1 = new MenuItem("Ввод ответа");
+            TextField input1 = new TextField("Введите ваш ответ");
+            SubMenu gamePage1 = new SubMenu(data.images[0], input1, enterInput1);
+            menubox.setSubMenu(gamePage1);
+            result.checkAnswer(data, input1.getText(), data.images[0]);
+            for (int i = 1; i < data.answers.length; i++){
+               // MenuItem enterInput = new MenuItem("Ввод ответа");
+                TextField input = new TextField("Введите ваш ответ");
+                SubMenu gamePage = new SubMenu(data.images[i], input, enterInput1);
+                //if (i == 1) {
+                 //   enterInput1.setOnMouseClicked(event1 -> menubox.setSubMenu(gamePage));
+                 //   result.checkAnswer(data, input.getText(), data.images[i]);
+                //} else {
+                    if (i != data.answers.length - 1) {
+                        enterInput1.setOnMouseClicked(event1 -> menubox.setSubMenu(gamePage));
+                        result.checkAnswer(data, input.getText(), data.images[i]);
+                    } else {
+                        Label resultLabel = new Label(result.getWinner());
+                        SubMenu resultPage = new SubMenu(resultLabel, goMenu);
+                        enterInput1.setOnMouseClicked(event3 -> menubox.setSubMenu(resultPage));
+                //    }
+                }
+            }
+
+
+
+
+
+            /* Label name = new Label(); //// - требует доработки в дизайне
+                    name.setText("D  E  B");// текст
+                    name.setTranslateX(760);// координты текста
+                    name.setTranslateY(-50);
+                    name.setFont(Font.font("Showcard gothic", FontWeight.BOLD, 150)); // шрифт и размер шрифта
+                    name.setTextFill(Color.DARKGOLDENROD);
+                    name.setScaleX(1);// толщина
+                    name.setScaleY(1);
+                    */
+            //root.getChildren().addAll(name);

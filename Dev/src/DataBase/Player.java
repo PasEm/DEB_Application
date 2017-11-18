@@ -2,7 +2,8 @@ package DataBase;
 
 public class Player {
     private String name;
-    private int score;
+    private Integer score;
+
     public Player(String name, int index){
         this.score = 0;
         setName(name, index);
@@ -32,11 +33,12 @@ public class Player {
             this.name += name.charAt(i);
         }
     }
+
     public String getName() {
         return name;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
