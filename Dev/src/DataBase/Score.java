@@ -8,6 +8,7 @@ public class Score {
     public Player[] players;
     private int playerCount;
     private int count = -1;
+    private Answers data = new Answers();
 
     public Score(){
        playerCount = 0;
@@ -25,9 +26,7 @@ public class Score {
     }
 
 
-    public void checkAnswer(Answers data, String input, Image im){
-
-      Answers maps = new Answers();
+    public void checkAnswer(String input, Image im){
         /*for (Map.Entry<Image, String> map : maps.answer.entrySet()){     // проверка по мапу
             if (map.getKey().equals(im) && map.getValue().equals(input.toLowerCase())){
                 players[count = (playerCount == 1) ? 0 : ++count % 2].updateScore();
@@ -56,6 +55,9 @@ public class Score {
                     winner = "Итог игры: ничья. " + players[0].getName() + " и " + players[1].getName() + " набрали по " + players[0].getScore().toString();
                 }
             }
+        }
+        for (int i = 0; i < playerCount; i++){
+            players[i] = null;
         }
         return winner;
     }

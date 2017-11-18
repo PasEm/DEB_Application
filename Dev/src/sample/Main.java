@@ -2,7 +2,6 @@ package sample;
 
 import DataBase.Answers;
 import DataBase.Score;
-import com.sun.org.apache.xpath.internal.SourceTree;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -12,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -83,12 +81,12 @@ public class Main extends Application {
         MenuItem backHelp = new MenuItem("Назад");
         MenuItem backToMenu = new MenuItem("Назад");
         MenuItem backSettings = new MenuItem("Назад");
-        MenuItem backSingle = new MenuItem("Назад");
-        MenuItem backMulty = new MenuItem("Назад");
+        MenuItemSmall backSingle = new MenuItemSmall("Назад");
+        MenuItemSmall backMulty = new MenuItemSmall("Назад");
         MenuItem backStartgame = new MenuItem("Назад");
 
-        MenuItem enterSingle = new MenuItem("Ввод");
-        MenuItem enterMulty = new MenuItem("Ввод");
+        MenuItemSmall enterSingle = new MenuItemSmall("Ввод");
+        MenuItemSmall enterMulty = new MenuItemSmall("Ввод");
 
         /////////////////////////////////////////////////////
 
@@ -135,7 +133,7 @@ public class Main extends Application {
                 SubMenu gamePage = new SubMenu(question.getKey(), input, enterInput);
                 menubox.setSubMenu(gamePage);
                // ft.play();
-                result.checkAnswer(data, input.getText(), question.getKey());
+                result.checkAnswer(input.getText(), question.getKey());
             }
             Label resultLabel = new Label(result.getWinner());
             SubMenu resultPage = new SubMenu(resultLabel, goMenu);
@@ -254,7 +252,7 @@ public class Main extends Application {
             }
         }
 
-        SubMenu(Label text, TextField field, MenuItem...items){
+        SubMenu(Label text, TextField field, MenuItemSmall...items){
             HBox box = new HBox();
             setSpacing(30);
             setTranslateX(510);
@@ -268,12 +266,12 @@ public class Main extends Application {
             text.setWrapText(true);
             box.setSpacing(30);
             getChildren().addAll(text, field, box);
-            for(MenuItem item : items) {
+            for(MenuItemSmall item : items) {
                 box.getChildren().addAll(item);
             }
         }
 
-        SubMenu(Label text, TextField field1, TextField field2, MenuItem...items){
+        SubMenu(Label text, TextField field1, TextField field2, MenuItemSmall...items){
             HBox box = new HBox();
             setSpacing(30);
             setTranslateX(510);
@@ -290,7 +288,7 @@ public class Main extends Application {
             text.setWrapText(true);
             box.setSpacing(30);
             getChildren().addAll(text, field1, field2, box);
-            for(MenuItem item : items) {
+            for(MenuItemSmall item : items) {
                 box.getChildren().addAll(item);
             }
         }
