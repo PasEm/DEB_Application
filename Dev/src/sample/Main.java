@@ -1,6 +1,6 @@
 package sample;
 
-import DataBase.Answers;
+import DataBase.Data;
 import DataBase.Score;
 import javafx.animation.*;
 import javafx.application.Application;
@@ -21,8 +21,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.Date;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -116,7 +114,7 @@ public class Main extends Application {
         TimerTask timerTask = new MyTimerTask();
         Timer timer = new Timer(true);
         //////////////////////////
-        Answers data = new Answers();
+        Data data = new Data();
         MenuBox menubox = new MenuBox(mainMenu);
         SubMenu numberOfPlayers = new SubMenu(singleplay, multiplay, backToMenu);
         startGame.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
@@ -125,25 +123,122 @@ public class Main extends Application {
         enterSingle.setOnMouseClicked(event -> {
             Score result = new Score();
             result.initPlayers(player.getText());
-           // FadeTransition ft = new FadeTransition(Duration.seconds(1000), menubox);
-            for (Map.Entry<Image, String> question : data.answer.entrySet()){
-               // timer.scheduleAtFixedRate(timerTask, 5000, 5);
-                MenuItem enterInput = new MenuItem("Ввод ответа");
-                TextField input = new TextField("Введите ваш ответ");
-                SubMenu gamePage = new SubMenu(question.getKey(), input, enterInput);
-                menubox.setSubMenu(gamePage);
-               // ft.play();
-                result.checkAnswer(input.getText(), question.getKey());
-            }
-            Label resultLabel = new Label(result.getWinner());
-            SubMenu resultPage = new SubMenu(resultLabel, goMenu);
-            menubox.setSubMenu(resultPage);
+            MenuItemSmall enterInput = new MenuItemSmall("Ввод ответа");
+            TextField input = new TextField("Введите ваш ответ");
+            SubMenu gamePage = new SubMenu(data.images[0], input, enterInput);
+            menubox.setSubMenu(gamePage);
+
+            MenuItemSmall enterInput1 = new MenuItemSmall("Ввод ответа");
+            TextField input1 = new TextField("Введите ваш ответ");
+            SubMenu gamePage1 = new SubMenu(data.images[1], input1, enterInput1);
+            enterInput.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input.getText(), data.images[0]);
+                menubox.setSubMenu(gamePage1);
+            });
+
+            MenuItemSmall enterInput2 = new MenuItemSmall("Ввод ответа");
+            TextField input2 = new TextField("Введите ваш ответ");
+            SubMenu gamePage2 = new SubMenu(data.images[2], input2, enterInput2);
+            enterInput1.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input1.getText(), data.images[1]);
+                menubox.setSubMenu(gamePage2);
+            });
+
+            MenuItemSmall enterInput3 = new MenuItemSmall("Ввод ответа");
+            TextField input3 = new TextField("Введите ваш ответ");
+            SubMenu gamePage3 = new SubMenu(data.images[3], input3, enterInput3);
+            enterInput2.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input2.getText(), data.images[2]);
+                menubox.setSubMenu(gamePage3);
+            });
+
+            MenuItemSmall enterInput4 = new MenuItemSmall("Ввод ответа");
+            TextField input4 = new TextField("Введите ваш ответ");
+            SubMenu gamePage4 = new SubMenu(data.images[4], input4, enterInput4);
+            enterInput3.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input3.getText(), data.images[3]);
+                menubox.setSubMenu(gamePage4);
+            });
+
+            MenuItemSmall enterInput5 = new MenuItemSmall("Ввод ответа");
+            TextField input5 = new TextField("Введите ваш ответ");
+            SubMenu gamePage5 = new SubMenu(data.images[5], input5, enterInput5);
+            enterInput4.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input4.getText(), data.images[4]);
+                menubox.setSubMenu(gamePage5);
+            });
+
+            enterInput5.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input5.getText(), data.images[5]);
+                String s = result.getWinner();
+                System.out.println(s);
+                Label resultLabel = new Label();
+                resultLabel.setText(s);
+                SubMenu resultPage = new SubMenu(resultLabel, goMenu);
+                menubox.setSubMenu(resultPage);
+            });
+
         });
         backSingle.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
         multiplay.setOnMouseClicked(event -> menubox.setSubMenu(enterNames));
         enterMulty.setOnMouseClicked(event -> {
             Score result = new Score();
             result.initPlayers(player1.getText(), player2.getText());
+            MenuItemSmall enterInput = new MenuItemSmall("Ввод ответа");
+            TextField input = new TextField("Введите ваш ответ");
+            SubMenu gamePage = new SubMenu(data.images[0], input, enterInput);
+            menubox.setSubMenu(gamePage);
+
+            MenuItemSmall enterInput1 = new MenuItemSmall("Ввод ответа");
+            TextField input1 = new TextField("Введите ваш ответ");
+            SubMenu gamePage1 = new SubMenu(data.images[1], input1, enterInput1);
+            enterInput.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input.getText(), data.images[0]);
+                menubox.setSubMenu(gamePage1);
+            });
+
+            MenuItemSmall enterInput2 = new MenuItemSmall("Ввод ответа");
+            TextField input2 = new TextField("Введите ваш ответ");
+            SubMenu gamePage2 = new SubMenu(data.images[2], input2, enterInput2);
+            enterInput1.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input1.getText(), data.images[1]);
+                menubox.setSubMenu(gamePage2);
+            });
+
+            MenuItemSmall enterInput3 = new MenuItemSmall("Ввод ответа");
+            TextField input3 = new TextField("Введите ваш ответ");
+            SubMenu gamePage3 = new SubMenu(data.images[3], input3, enterInput3);
+            enterInput2.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input2.getText(), data.images[2]);
+                menubox.setSubMenu(gamePage3);
+            });
+
+            MenuItemSmall enterInput4 = new MenuItemSmall("Ввод ответа");
+            TextField input4 = new TextField("Введите ваш ответ");
+            SubMenu gamePage4 = new SubMenu(data.images[4], input4, enterInput4);
+            enterInput3.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input3.getText(), data.images[3]);
+                menubox.setSubMenu(gamePage4);
+            });
+
+            MenuItemSmall enterInput5 = new MenuItemSmall("Ввод ответа");
+            TextField input5 = new TextField("Введите ваш ответ");
+            SubMenu gamePage5 = new SubMenu(data.images[5], input5, enterInput5);
+            enterInput4.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input4.getText(), data.images[4]);
+                menubox.setSubMenu(gamePage5);
+            });
+
+            enterInput5.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input5.getText(), data.images[5]);
+                String s = result.getWinner();
+                System.out.println(s);
+                Label resultLabel = new Label();
+                resultLabel.setText(s);
+                SubMenu resultPage = new SubMenu(resultLabel, goMenu);
+                menubox.setSubMenu(resultPage);
+            });
+
         });
         backMulty.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
         settings.setOnMouseClicked(event -> menubox.setSubMenu(settingsPage));
@@ -293,7 +388,7 @@ public class Main extends Application {
             }
         }
 
-        SubMenu(Image image, TextField field, MenuItem item){
+        SubMenu(Image image, TextField field, MenuItemSmall item){
             ImageView view = new ImageView(image);
             view.setFitWidth(900);
             view.setFitHeight(540);

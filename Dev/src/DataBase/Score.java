@@ -2,13 +2,10 @@ package DataBase;
 
 import javafx.scene.image.Image;
 
-import java.util.Map;
-
 public class Score {
     public Player[] players;
     private int playerCount;
-    private int count = -1;
-    private Answers data = new Answers();
+    private Data data = new Data();
 
     public Score(){
        playerCount = 0;
@@ -19,12 +16,12 @@ public class Score {
             playerCount++;
         }
         players = new Player[playerCount];
-        int i = -1;
+        int i = 0;
         for (String name : names) {
-            players[++i] = new Player(name, i);
+            players[i] = new Player(name, i);
+            i++;
         }
     }
-
 
     public void checkAnswer(String input, Image im){
         /*for (Map.Entry<Image, String> map : maps.answer.entrySet()){     // проверка по мапу
@@ -33,10 +30,10 @@ public class Score {
                 break;
             }
         }*/
+        // при проверке изображений всегда выдается false - непонятно, нужна помощь (im.equals(
       for (int i = 0; i < data.answers.length; i++){
-          if (input.equals(data.answers[i]) && im.equals(data.images[i])){
-              players[count = (playerCount == 1) ? 0 : ++count % 2].updateScore();
-              break;
+          if (input.toLowerCase().equals(data.answers[i])){
+              players[(playerCount == 1) ? 0 : i % 2].updateScore();
           }
       }
     }
@@ -47,12 +44,12 @@ public class Score {
             winner = players[0].getName() + ", ваш результат: " + players[0].getScore().toString();
         } else{
             if (players[0].getScore() > players[1].getScore()){
-                winner = "Победил " + players[0].getName() + ", ваш результат: " + players[0].getScore().toString();
+                winner = "Победил " + players[0].getName() + ", ваш результат: " + players[0].getScore().toString() + " балл(ов)";
             } else{
                 if (players[0].getScore() < players[1].getScore()) {
-                    winner = "Победил " + players[1].getName() + ", ваш результат: " + players[0].getScore().toString();
+                    winner = "Победил " + players[1].getName() + ", ваш результат: " + players[1].getScore().toString() + " балл(ов)";
                 } else{
-                    winner = "Итог игры: ничья. " + players[0].getName() + " и " + players[1].getName() + " набрали по " + players[0].getScore().toString();
+                    winner = "Итог игры - ничья: " + players[0].getName() + " и " + players[1].getName() + " набрали " + players[0].getScore().toString() + " балл(а)";
                 }
             }
         }
@@ -63,5 +60,3 @@ public class Score {
     }
 
 }
-
-

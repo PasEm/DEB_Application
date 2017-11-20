@@ -31,6 +31,19 @@ int i = 0;
 
 
 
+    /* for (Map.Entry<Image, String> question : data.answer.entrySet()){
+                   // timer.scheduleAtFixedRate(timerTask, 5000, 1);
+                    MenuItemSmall enterInput = new MenuItemSmall("Ввод ответа");
+                    TextField input = new TextField("Введите ваш ответ");
+                    SubMenu gamePage = new SubMenu(question.getKey(), input, enterInput);
+                    menubox.setSubMenu(gamePage);
+                    result.checkAnswer(input.getText(), question.getKey());
+                    //continue;
+                }*/
+
+
+
+
 
 MenuItem enterInput1 = new MenuItem("Ввод ответа");
             TextField input1 = new TextField("Введите ваш ответ");

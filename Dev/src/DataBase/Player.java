@@ -2,7 +2,7 @@ package DataBase;
 
 public class Player {
     private String name;
-    private Integer score;
+    private int score;
 
     public Player(String name, int index){
         this.score = 0;
@@ -43,6 +43,6 @@ public class Player {
     }
 
     public void updateScore(){
-            this.score++;
+            score++;
         }
 }
