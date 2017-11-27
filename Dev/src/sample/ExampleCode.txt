@@ -83,3 +83,47 @@ MenuItem enterInput1 = new MenuItem("Ввод ответа");
                     name.setScaleY(1);
                     */
             //root.getChildren().addAll(name);
+
+
+
+
+
+           /* for (int i = 0; i < data.getAnswerLength() - 2; ){
+                            MenuItemSmall enterInput = new MenuItemSmall("Ввод ответа");
+                            TextField input = new TextField("Введите ваш ответ");
+                            SubMenu gamePage = new SubMenu(data.getImage(i), input, enterInput);
+                            menubox.setSubMenu(gamePage);
+                            while (!data.getChecker()) {
+                                enterInput.setOnMouseClicked(event1 -> data.changeAccess());
+                            }
+                            result.checkAnswer(input.getText(), data.getImage(i));
+                            data.changeAccess();
+                            i++;
+                        }
+                        */
+
+
+
+                        int nextIndex = random.nextInt(1000000) % data.getAnswerLength();
+                                    MenuItemSmall currentEnter = new MenuItemSmall("Ввод ответа");;
+                                    TextField currentInput = new TextField("Введите ваш ответ");;
+                                    SubMenu currentPage;
+
+                                    result.initPlayers(player.getText());
+                                    for (int i = 0; i < data.getAnswerLength() - 1;){
+                                        if (i == 0) {
+                                            currentEnter = new MenuItemSmall("Ввод ответа");
+                                            currentInput = new TextField("Введите ваш ответ");
+                                        } else {
+                                            currentPage = new SubMenu(data.getImage(nextIndex), currentInput, currentEnter);
+                                            menubox.setSubMenu(currentPage);
+                                        }
+                                        TextField nextInput = currentInput;
+                                        nextIndex = random.nextInt(1000000) % data.getAnswerLength();
+                                        currentEnter.setOnMouseClicked(event1 -> data.changeCheck());
+                                        if (data.getCheck()){
+                                            data.changeCheck();
+                                            result.checkAnswer(nextInput.getText(), data.getImage(nextIndex));
+                                            i++;
+                                        }
+                                    }

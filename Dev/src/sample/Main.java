@@ -1,6 +1,6 @@
 package sample;
 
-import DataBase.Data;
+import DataBase.DataImages.Data;
 import DataBase.Score;
 import javafx.animation.*;
 import javafx.application.Application;
@@ -21,49 +21,34 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Main extends Application {
 
-    public class MyTimerTask extends TimerTask {
-
-        @Override
-        public void run() {
-            completeTask();
-        }
-
-        private void completeTask() {
-            try {
-                // допустим, выполнение займет 10 секунд
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
     public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
-        Image image = new Image(getClass().getResourceAsStream("deb.jpg"));
-        ImageView img = new ImageView(image);
+        Data data = Data.getData();
+        Score result = Score.getScore();
+        ImageView img = new ImageView(data.getImage(data.getImagesLength() - 1));
+        Image ico = data.getImage(data.getImagesLength() - 1);
         img.setTranslateX(60);
         img.setFitWidth(1800);
         img.setFitHeight(1080);
 
-        Image itis = new Image(getClass().getResourceAsStream("ITIS.jpg"));
-        ImageView imgItis = new ImageView(itis);
+        ImageView imgItis = new ImageView(data.getImage(data.getImagesLength() - 2));
         imgItis.setTranslateX(1740);
         imgItis.setTranslateY(960);
         imgItis.setFitWidth(120);
         imgItis.setFitHeight(120);
 
-        Image itis11702 = new Image(getClass().getResourceAsStream("11-702.jpg"));
-        ImageView imgItis11702 = new ImageView(itis11702);
-        imgItis11702.setTranslateX(1620);
-        imgItis11702.setTranslateY(960);
-        imgItis11702.setFitWidth(120);
-        imgItis11702.setFitHeight(120);
-        root.getChildren().addAll(img, imgItis, imgItis11702);
+        ImageView img11702 = new ImageView(data.getImage(data.getImagesLength() - 3));
+        img11702.setTranslateX(1620);
+        img11702.setTranslateY(960);
+        img11702.setFitWidth(120);
+        img11702.setFitHeight(120);
+        root.getChildren().addAll(img, imgItis, img11702);
 
         /////////////////////////////
 
@@ -74,7 +59,6 @@ public class Main extends Application {
         MenuItem exitGame = new MenuItem("Выход");
         MenuItem singleplay = new MenuItem("1 игрок");
         MenuItem multiplay = new MenuItem("2 игрока");
-
         MenuItem backCredits = new MenuItem("Назад");
         MenuItem backHelp = new MenuItem("Назад");
         MenuItem backToMenu = new MenuItem("Назад");
@@ -82,7 +66,6 @@ public class Main extends Application {
         MenuItemSmall backSingle = new MenuItemSmall("Назад");
         MenuItemSmall backMulty = new MenuItemSmall("Назад");
         MenuItem backStartgame = new MenuItem("Назад");
-
         MenuItemSmall enterSingle = new MenuItemSmall("Ввод");
         MenuItemSmall enterMulty = new MenuItemSmall("Ввод");
 
@@ -101,7 +84,7 @@ public class Main extends Application {
         MenuItem exitNo = new MenuItem("Нет");
         SubMenu exitPage = new SubMenu(new Label("Вы уверены, что хотите выйти?"), exitYes, exitNo);
 
-        TextField player = new TextField("Player1");
+        TextField player = new TextField("Player");
         SubMenu enterName = new SubMenu(new Label("Введите имя игрока:"), player, backSingle, enterSingle);
 
         TextField player1 = new TextField("Player1");
@@ -110,135 +93,255 @@ public class Main extends Application {
 
         MenuItem goMenu = new MenuItem("Выход в главное меню");
 
-        /////////////////////
-        TimerTask timerTask = new MyTimerTask();
-        Timer timer = new Timer(true);
-        //////////////////////////
-        Data data = new Data();
+        final Random random = new Random();
+        final int finalIndex = random.nextInt(1000000) % data.getAnswerLength();
+
+        //////////////////////////////////////////////////
+
         MenuBox menubox = new MenuBox(mainMenu);
         SubMenu numberOfPlayers = new SubMenu(singleplay, multiplay, backToMenu);
         startGame.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
         backStartgame.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
-        singleplay.setOnMouseClicked(event -> menubox.setSubMenu(enterName));
+        singleplay.setOnMouseClicked(event -> {
+            menubox.setSubMenu(enterName);
+            player.setText("Player");
+        });
         enterSingle.setOnMouseClicked(event -> {
-            Score result = new Score();
+            result.newGame();
             result.initPlayers(player.getText());
-            MenuItemSmall enterInput = new MenuItemSmall("Ввод ответа");
-            TextField input = new TextField("Введите ваш ответ");
-            SubMenu gamePage = new SubMenu(data.images[0], input, enterInput);
-            menubox.setSubMenu(gamePage);
 
             MenuItemSmall enterInput1 = new MenuItemSmall("Ввод ответа");
             TextField input1 = new TextField("Введите ваш ответ");
-            SubMenu gamePage1 = new SubMenu(data.images[1], input1, enterInput1);
-            enterInput.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input.getText(), data.images[0]);
-                menubox.setSubMenu(gamePage1);
-            });
+            int nextIndex1 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage1 = new SubMenu(data.getImage(nextIndex1), input1, enterInput1);
+            menubox.setSubMenu(gamePage1);
 
             MenuItemSmall enterInput2 = new MenuItemSmall("Ввод ответа");
-            TextField input2 = new TextField("Введите ваш ответ");
-            SubMenu gamePage2 = new SubMenu(data.images[2], input2, enterInput2);
+            TextField input2 = new TextField();
+            int nextIndex2 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage2 = new SubMenu(data.getImage(nextIndex2), input2, enterInput2);
             enterInput1.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input1.getText(), data.images[1]);
+                result.checkAnswer(input1.getText(), data.getImage(nextIndex1));
                 menubox.setSubMenu(gamePage2);
             });
 
             MenuItemSmall enterInput3 = new MenuItemSmall("Ввод ответа");
-            TextField input3 = new TextField("Введите ваш ответ");
-            SubMenu gamePage3 = new SubMenu(data.images[3], input3, enterInput3);
+            TextField input3 = new TextField();
+            int nextIndex3 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage3 = new SubMenu(data.getImage(nextIndex3), input3, enterInput3);
             enterInput2.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input2.getText(), data.images[2]);
+                result.checkAnswer(input2.getText(), data.getImage(nextIndex2));
                 menubox.setSubMenu(gamePage3);
             });
 
             MenuItemSmall enterInput4 = new MenuItemSmall("Ввод ответа");
-            TextField input4 = new TextField("Введите ваш ответ");
-            SubMenu gamePage4 = new SubMenu(data.images[4], input4, enterInput4);
+            TextField input4 = new TextField();
+            int nextIndex4 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage4 = new SubMenu(data.getImage(nextIndex4), input4, enterInput4);
             enterInput3.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input3.getText(), data.images[3]);
+                result.checkAnswer(input3.getText(), data.getImage(nextIndex3));
                 menubox.setSubMenu(gamePage4);
             });
 
             MenuItemSmall enterInput5 = new MenuItemSmall("Ввод ответа");
-            TextField input5 = new TextField("Введите ваш ответ");
-            SubMenu gamePage5 = new SubMenu(data.images[5], input5, enterInput5);
+            TextField input5 = new TextField();
+            int nextIndex5 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage5 = new SubMenu(data.getImage(nextIndex5), input5, enterInput5);
             enterInput4.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input4.getText(), data.images[4]);
+                result.checkAnswer(input4.getText(), data.getImage(nextIndex4));
                 menubox.setSubMenu(gamePage5);
             });
 
+            MenuItemSmall enterInput6 = new MenuItemSmall("Ввод ответа");
+            TextField input6 = new TextField();
+            int nextIndex6 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage6 = new SubMenu(data.getImage(nextIndex6), input6, enterInput6);
             enterInput5.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input5.getText(), data.images[5]);
-                String s = result.getWinner();
-                System.out.println(s);
-                Label resultLabel = new Label();
-                resultLabel.setText(s);
+                result.checkAnswer(input5.getText(), data.getImage(nextIndex5));
+                menubox.setSubMenu(gamePage6);
+            });
+
+            MenuItemSmall enterInput7 = new MenuItemSmall("Ввод ответа");
+            TextField input7 = new TextField();
+            int nextIndex7 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage7 = new SubMenu(data.getImage(nextIndex7), input7, enterInput7);
+            enterInput6.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input6.getText(), data.getImage(nextIndex6));
+                menubox.setSubMenu(gamePage7);
+            });
+
+            MenuItemSmall enterInput8 = new MenuItemSmall("Ввод ответа");
+            TextField input8 = new TextField();
+            int nextIndex8 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage8 = new SubMenu(data.getImage(nextIndex8), input8, enterInput8);
+            enterInput7.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input7.getText(), data.getImage(nextIndex7));
+                menubox.setSubMenu(gamePage8);
+            });
+
+            MenuItemSmall enterInput9 = new MenuItemSmall("Ввод ответа");
+            TextField input9 = new TextField();
+            int nextIndex9 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage9 = new SubMenu(data.getImage(nextIndex9), input9, enterInput9);
+            enterInput8.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input8.getText(), data.getImage(nextIndex8));
+                menubox.setSubMenu(gamePage9);
+            });
+
+            MenuItemSmall enterInput10 = new MenuItemSmall("Ввод ответа");
+            TextField input10 = new TextField();
+            int nextIndex10 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage10 = new SubMenu(data.getImage(nextIndex10), input10, enterInput10);
+            enterInput9.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input9.getText(), data.getImage(nextIndex9));
+                menubox.setSubMenu(gamePage10);
+            });
+
+            MenuItemSmall enterInput11 = new MenuItemSmall("Ввод ответа");
+            TextField input11 = new TextField();
+            int nextIndex11 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage11 = new SubMenu(data.getImage(nextIndex11), input11, enterInput11);
+            enterInput10.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input10.getText(), data.getImage(nextIndex10));
+                menubox.setSubMenu(gamePage11);
+            });
+
+            MenuItemSmall finalEnter = new MenuItemSmall("Ввод ответа");
+            TextField finalInput = new TextField();
+            SubMenu finalGamePage = new SubMenu(data.getImage(finalIndex), finalInput, finalEnter);
+            enterInput11.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input11.getText(), data.getImage(nextIndex11));
+                menubox.setSubMenu(finalGamePage);
+            });
+
+            finalEnter.setOnMouseClicked(event1 -> {
+                result.checkAnswer(finalInput.getText(), data.getImage(finalIndex));
+                Label resultLabel = new Label(result.getWinner());
                 SubMenu resultPage = new SubMenu(resultLabel, goMenu);
                 menubox.setSubMenu(resultPage);
             });
 
         });
         backSingle.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
-        multiplay.setOnMouseClicked(event -> menubox.setSubMenu(enterNames));
+        multiplay.setOnMouseClicked(event -> {
+            menubox.setSubMenu(enterNames);
+            player1.setText("Player1");
+            player2.setText("Player2");
+        });
         enterMulty.setOnMouseClicked(event -> {
-            Score result = new Score();
+            result.newGame();
             result.initPlayers(player1.getText(), player2.getText());
-            MenuItemSmall enterInput = new MenuItemSmall("Ввод ответа");
-            TextField input = new TextField("Введите ваш ответ");
-            SubMenu gamePage = new SubMenu(data.images[0], input, enterInput);
-            menubox.setSubMenu(gamePage);
 
             MenuItemSmall enterInput1 = new MenuItemSmall("Ввод ответа");
             TextField input1 = new TextField("Введите ваш ответ");
-            SubMenu gamePage1 = new SubMenu(data.images[1], input1, enterInput1);
-            enterInput.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input.getText(), data.images[0]);
-                menubox.setSubMenu(gamePage1);
-            });
+            int nextIndex1 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage1 = new SubMenu(data.getImage(nextIndex1), input1, enterInput1);
+            menubox.setSubMenu(gamePage1);
 
             MenuItemSmall enterInput2 = new MenuItemSmall("Ввод ответа");
-            TextField input2 = new TextField("Введите ваш ответ");
-            SubMenu gamePage2 = new SubMenu(data.images[2], input2, enterInput2);
+            TextField input2 = new TextField();
+            int nextIndex2 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage2 = new SubMenu(data.getImage(nextIndex2), input2, enterInput2);
             enterInput1.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input1.getText(), data.images[1]);
+                result.checkAnswer(input1.getText(), data.getImage(nextIndex1));
                 menubox.setSubMenu(gamePage2);
             });
 
             MenuItemSmall enterInput3 = new MenuItemSmall("Ввод ответа");
-            TextField input3 = new TextField("Введите ваш ответ");
-            SubMenu gamePage3 = new SubMenu(data.images[3], input3, enterInput3);
+            TextField input3 = new TextField();
+            int nextIndex3 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage3 = new SubMenu(data.getImage(nextIndex3), input3, enterInput3);
             enterInput2.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input2.getText(), data.images[2]);
+                result.checkAnswer(input2.getText(), data.getImage(nextIndex2));
                 menubox.setSubMenu(gamePage3);
             });
 
             MenuItemSmall enterInput4 = new MenuItemSmall("Ввод ответа");
-            TextField input4 = new TextField("Введите ваш ответ");
-            SubMenu gamePage4 = new SubMenu(data.images[4], input4, enterInput4);
+            TextField input4 = new TextField();
+            int nextIndex4 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage4 = new SubMenu(data.getImage(nextIndex4), input4, enterInput4);
             enterInput3.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input3.getText(), data.images[3]);
+                result.checkAnswer(input3.getText(), data.getImage(nextIndex3));
                 menubox.setSubMenu(gamePage4);
             });
 
             MenuItemSmall enterInput5 = new MenuItemSmall("Ввод ответа");
-            TextField input5 = new TextField("Введите ваш ответ");
-            SubMenu gamePage5 = new SubMenu(data.images[5], input5, enterInput5);
+            TextField input5 = new TextField();
+            int nextIndex5 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage5 = new SubMenu(data.getImage(nextIndex5), input5, enterInput5);
             enterInput4.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input4.getText(), data.images[4]);
+                result.checkAnswer(input4.getText(), data.getImage(nextIndex4));
                 menubox.setSubMenu(gamePage5);
             });
 
+            MenuItemSmall enterInput6 = new MenuItemSmall("Ввод ответа");
+            TextField input6 = new TextField();
+            int nextIndex6 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage6 = new SubMenu(data.getImage(nextIndex6), input6, enterInput6);
             enterInput5.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input5.getText(), data.images[5]);
-                String s = result.getWinner();
-                System.out.println(s);
-                Label resultLabel = new Label();
-                resultLabel.setText(s);
+                result.checkAnswer(input5.getText(), data.getImage(nextIndex5));
+                menubox.setSubMenu(gamePage6);
+            });
+
+            MenuItemSmall enterInput7 = new MenuItemSmall("Ввод ответа");
+            TextField input7 = new TextField();
+            int nextIndex7 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage7 = new SubMenu(data.getImage(nextIndex7), input7, enterInput7);
+            enterInput6.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input6.getText(), data.getImage(nextIndex6));
+                menubox.setSubMenu(gamePage7);
+            });
+
+            MenuItemSmall enterInput8 = new MenuItemSmall("Ввод ответа");
+            TextField input8 = new TextField();
+            int nextIndex8 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage8 = new SubMenu(data.getImage(nextIndex8), input8, enterInput8);
+            enterInput7.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input7.getText(), data.getImage(nextIndex7));
+                menubox.setSubMenu(gamePage8);
+            });
+
+            MenuItemSmall enterInput9 = new MenuItemSmall("Ввод ответа");
+            TextField input9 = new TextField();
+            int nextIndex9 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage9 = new SubMenu(data.getImage(nextIndex9), input9, enterInput9);
+            enterInput8.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input8.getText(), data.getImage(nextIndex8));
+                menubox.setSubMenu(gamePage9);
+            });
+
+            MenuItemSmall enterInput10 = new MenuItemSmall("Ввод ответа");
+            TextField input10 = new TextField();
+            int nextIndex10 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage10 = new SubMenu(data.getImage(nextIndex10), input10, enterInput10);
+            enterInput9.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input9.getText(), data.getImage(nextIndex9));
+                menubox.setSubMenu(gamePage10);
+            });
+
+            MenuItemSmall enterInput11 = new MenuItemSmall("Ввод ответа");
+            TextField input11 = new TextField();
+            int nextIndex11 = random.nextInt(1000000) % data.getAnswerLength();
+            SubMenu gamePage11 = new SubMenu(data.getImage(nextIndex11), input11, enterInput11);
+            enterInput10.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input10.getText(), data.getImage(nextIndex10));
+                menubox.setSubMenu(gamePage11);
+            });
+
+            MenuItemSmall finalEnter = new MenuItemSmall("Ввод ответа");
+            TextField finalInput = new TextField();
+            SubMenu finalGamePage = new SubMenu(data.getImage(finalIndex), finalInput, finalEnter);
+            enterInput11.setOnMouseClicked(event1 -> {
+                result.checkAnswer(input11.getText(), data.getImage(nextIndex11));
+                menubox.setSubMenu(finalGamePage);
+            });
+
+            finalEnter.setOnMouseClicked(event1 -> {
+                Label resultLabel = new Label(result.getWinner());
+                result.checkAnswer(finalInput.getText(), data.getImage(finalIndex));
                 SubMenu resultPage = new SubMenu(resultLabel, goMenu);
                 menubox.setSubMenu(resultPage);
             });
-
         });
         backMulty.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
         settings.setOnMouseClicked(event -> menubox.setSubMenu(settingsPage));
@@ -273,6 +376,8 @@ public class Main extends Application {
                 }
             }
         });
+
+        primaryStage.getIcons().add(ico);
         primaryStage.setTitle("DEB");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -338,7 +443,7 @@ public class Main extends Application {
             setTranslateX(510);
             setTranslateY(400);
             text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
-            text.setTextFill(Color.DARKGOLDENROD);
+            text.setTextFill(Color.LIGHTYELLOW);
             text.setMaxWidth(1000);
             text.setWrapText(true);
             getChildren().addAll(text);
@@ -356,7 +461,7 @@ public class Main extends Application {
             field.setFont(Font.font("Arial", FontWeight.BOLD, 40));
             field.setMinHeight(90);
             text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
-            text.setTextFill(Color.DARKGOLDENROD);
+            text.setTextFill(Color.LIGHTYELLOW);
             text.setMaxWidth(1000);
             text.setWrapText(true);
             box.setSpacing(30);
@@ -378,7 +483,7 @@ public class Main extends Application {
             field1.setMinHeight(90);
             field2.setMinHeight(90);
             text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
-            text.setTextFill(Color.DARKGOLDENROD);
+            text.setTextFill(Color.LIGHTYELLOW);
             text.setMaxWidth(1000);
             text.setWrapText(true);
             box.setSpacing(30);

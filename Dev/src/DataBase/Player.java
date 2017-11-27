@@ -32,7 +32,7 @@ public class Player {
         for (int i = 0; i < name.length(); i++) {
             this.name += name.charAt(i);
         }
-    }
+}
 
     public String getName() {
         return name;
