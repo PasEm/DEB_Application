@@ -107,8 +107,7 @@ public class Main extends Application {
             player.setText("Player");
         });
         enterSingle.setOnMouseClicked(event -> {
-            result.newGame();
-            result.initPlayers(player.getText());
+            result.newGame(player.getText());
 
             MenuItemSmall enterInput1 = new MenuItemSmall("Ввод ответа");
             TextField input1 = new TextField("Введите ваш ответ");
@@ -229,8 +228,7 @@ public class Main extends Application {
             player2.setText("Player2");
         });
         enterMulty.setOnMouseClicked(event -> {
-            result.newGame();
-            result.initPlayers(player1.getText(), player2.getText());
+            result.newGame(player1.getText(), player2.getText() );
 
             MenuItemSmall enterInput1 = new MenuItemSmall("Ввод ответа");
             TextField input1 = new TextField("Введите ваш ответ");

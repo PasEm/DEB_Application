@@ -13,10 +13,7 @@ public class Score {
        playerCount = 0;
     }
 
-    public void initPlayers(String...names){
-        for (String name : names) {
-            playerCount++;
-        }
+    private void initPlayers(String...names){
         players = new Player[playerCount];
         int i = 0;
         for (String name : names) {
@@ -27,10 +24,7 @@ public class Score {
 
     public void checkAnswer(String input, Image im){
         for (int i = 0; i < data.getAnswerLength(); i++) {
-            if (input.toLowerCase().equals(data.getAnswer(i))){
-                System.out.println(data.getImage(i).getClass().getName().equals(im.getClass().getName()));
-            }
-            if (input.toLowerCase().equals(data.getAnswer(i)) && data.getImage(i).getClass().getName().equals(im.getClass().getName())) {
+            if (input.toLowerCase().equals(data.getAnswer(i)) && data.getImage(i).toString().equals(im.toString())) {
                 players[(playerCount == 1) ? 0 : i % 2].updateScore();
             }
         }
@@ -59,11 +53,21 @@ public class Score {
         return winner;
     }
 
-    public void newGame(){
+    public void newGame(String...names){
         for (int i = 0; i < playerCount; i++){
             players[i] = null;
         }
         playerCount = 0;
+        String name[] = new String[2];
+        for (String input: names){
+            name[playerCount] = input;
+            playerCount++;
+        }
+        if (playerCount == 1) {
+            initPlayers(name[0]);
+        } else{
+            initPlayers(name);
+        }
     }
 
     static {
