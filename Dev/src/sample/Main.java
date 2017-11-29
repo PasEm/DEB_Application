@@ -120,7 +120,7 @@ public class Main extends Application {
             int nextIndex2 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage2 = new SubMenu(data.getImage(nextIndex2), input2, enterInput2);
             enterInput1.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input1.getText(), data.getImage(nextIndex1));
+                result.checkAnswer(input1.getText(), nextIndex1);
                 menubox.setSubMenu(gamePage2);
             });
 
@@ -129,7 +129,7 @@ public class Main extends Application {
             int nextIndex3 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage3 = new SubMenu(data.getImage(nextIndex3), input3, enterInput3);
             enterInput2.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input2.getText(), data.getImage(nextIndex2));
+                result.checkAnswer(input2.getText(), nextIndex2);
                 menubox.setSubMenu(gamePage3);
             });
 
@@ -138,7 +138,7 @@ public class Main extends Application {
             int nextIndex4 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage4 = new SubMenu(data.getImage(nextIndex4), input4, enterInput4);
             enterInput3.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input3.getText(), data.getImage(nextIndex3));
+                result.checkAnswer(input3.getText(), nextIndex3);
                 menubox.setSubMenu(gamePage4);
             });
 
@@ -147,7 +147,7 @@ public class Main extends Application {
             int nextIndex5 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage5 = new SubMenu(data.getImage(nextIndex5), input5, enterInput5);
             enterInput4.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input4.getText(), data.getImage(nextIndex4));
+                result.checkAnswer(input4.getText(), nextIndex4);
                 menubox.setSubMenu(gamePage5);
             });
 
@@ -156,7 +156,7 @@ public class Main extends Application {
             int nextIndex6 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage6 = new SubMenu(data.getImage(nextIndex6), input6, enterInput6);
             enterInput5.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input5.getText(), data.getImage(nextIndex5));
+                result.checkAnswer(input5.getText(), nextIndex5);
                 menubox.setSubMenu(gamePage6);
             });
 
@@ -165,7 +165,7 @@ public class Main extends Application {
             int nextIndex7 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage7 = new SubMenu(data.getImage(nextIndex7), input7, enterInput7);
             enterInput6.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input6.getText(), data.getImage(nextIndex6));
+                result.checkAnswer(input6.getText(), nextIndex6);
                 menubox.setSubMenu(gamePage7);
             });
 
@@ -174,7 +174,7 @@ public class Main extends Application {
             int nextIndex8 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage8 = new SubMenu(data.getImage(nextIndex8), input8, enterInput8);
             enterInput7.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input7.getText(), data.getImage(nextIndex7));
+                result.checkAnswer(input7.getText(), nextIndex7);
                 menubox.setSubMenu(gamePage8);
             });
 
@@ -183,7 +183,7 @@ public class Main extends Application {
             int nextIndex9 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage9 = new SubMenu(data.getImage(nextIndex9), input9, enterInput9);
             enterInput8.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input8.getText(), data.getImage(nextIndex8));
+                result.checkAnswer(input8.getText(), nextIndex8);
                 menubox.setSubMenu(gamePage9);
             });
 
@@ -192,7 +192,7 @@ public class Main extends Application {
             int nextIndex10 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage10 = new SubMenu(data.getImage(nextIndex10), input10, enterInput10);
             enterInput9.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input9.getText(), data.getImage(nextIndex9));
+                result.checkAnswer(input9.getText(), nextIndex9);
                 menubox.setSubMenu(gamePage10);
             });
 
@@ -201,7 +201,7 @@ public class Main extends Application {
             int nextIndex11 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage11 = new SubMenu(data.getImage(nextIndex11), input11, enterInput11);
             enterInput10.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input10.getText(), data.getImage(nextIndex10));
+                result.checkAnswer(input10.getText(), nextIndex10);
                 menubox.setSubMenu(gamePage11);
             });
 
@@ -209,12 +209,12 @@ public class Main extends Application {
             TextField finalInput = new TextField();
             SubMenu finalGamePage = new SubMenu(data.getImage(finalIndex), finalInput, finalEnter);
             enterInput11.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input11.getText(), data.getImage(nextIndex11));
+                result.checkAnswer(input11.getText(), nextIndex11);
                 menubox.setSubMenu(finalGamePage);
             });
 
             finalEnter.setOnMouseClicked(event1 -> {
-                result.checkAnswer(finalInput.getText(), data.getImage(finalIndex));
+                result.checkAnswer(finalInput.getText(), finalIndex);
                 Label resultLabel = new Label(result.getWinner());
                 SubMenu resultPage = new SubMenu(resultLabel, goMenu);
                 menubox.setSubMenu(resultPage);
@@ -241,7 +241,7 @@ public class Main extends Application {
             int nextIndex2 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage2 = new SubMenu(data.getImage(nextIndex2), input2, enterInput2);
             enterInput1.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input1.getText(), data.getImage(nextIndex1));
+                result.checkAnswer(input1.getText(), nextIndex1);
                 menubox.setSubMenu(gamePage2);
             });
 
@@ -250,7 +250,7 @@ public class Main extends Application {
             int nextIndex3 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage3 = new SubMenu(data.getImage(nextIndex3), input3, enterInput3);
             enterInput2.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input2.getText(), data.getImage(nextIndex2));
+                result.checkAnswer(input2.getText(), nextIndex2);
                 menubox.setSubMenu(gamePage3);
             });
 
@@ -259,7 +259,7 @@ public class Main extends Application {
             int nextIndex4 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage4 = new SubMenu(data.getImage(nextIndex4), input4, enterInput4);
             enterInput3.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input3.getText(), data.getImage(nextIndex3));
+                result.checkAnswer(input3.getText(), nextIndex3);
                 menubox.setSubMenu(gamePage4);
             });
 
@@ -268,7 +268,7 @@ public class Main extends Application {
             int nextIndex5 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage5 = new SubMenu(data.getImage(nextIndex5), input5, enterInput5);
             enterInput4.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input4.getText(), data.getImage(nextIndex4));
+                result.checkAnswer(input4.getText(), nextIndex4);
                 menubox.setSubMenu(gamePage5);
             });
 
@@ -277,7 +277,7 @@ public class Main extends Application {
             int nextIndex6 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage6 = new SubMenu(data.getImage(nextIndex6), input6, enterInput6);
             enterInput5.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input5.getText(), data.getImage(nextIndex5));
+                result.checkAnswer(input5.getText(), nextIndex5);
                 menubox.setSubMenu(gamePage6);
             });
 
@@ -286,7 +286,7 @@ public class Main extends Application {
             int nextIndex7 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage7 = new SubMenu(data.getImage(nextIndex7), input7, enterInput7);
             enterInput6.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input6.getText(), data.getImage(nextIndex6));
+                result.checkAnswer(input6.getText(), nextIndex6);
                 menubox.setSubMenu(gamePage7);
             });
 
@@ -295,7 +295,7 @@ public class Main extends Application {
             int nextIndex8 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage8 = new SubMenu(data.getImage(nextIndex8), input8, enterInput8);
             enterInput7.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input7.getText(), data.getImage(nextIndex7));
+                result.checkAnswer(input7.getText(), nextIndex7);
                 menubox.setSubMenu(gamePage8);
             });
 
@@ -304,7 +304,7 @@ public class Main extends Application {
             int nextIndex9 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage9 = new SubMenu(data.getImage(nextIndex9), input9, enterInput9);
             enterInput8.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input8.getText(), data.getImage(nextIndex8));
+                result.checkAnswer(input8.getText(), nextIndex8);
                 menubox.setSubMenu(gamePage9);
             });
 
@@ -313,7 +313,7 @@ public class Main extends Application {
             int nextIndex10 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage10 = new SubMenu(data.getImage(nextIndex10), input10, enterInput10);
             enterInput9.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input9.getText(), data.getImage(nextIndex9));
+                result.checkAnswer(input9.getText(), nextIndex9);
                 menubox.setSubMenu(gamePage10);
             });
 
@@ -322,7 +322,7 @@ public class Main extends Application {
             int nextIndex11 = random.nextInt(1000000) % data.getAnswerLength();
             SubMenu gamePage11 = new SubMenu(data.getImage(nextIndex11), input11, enterInput11);
             enterInput10.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input10.getText(), data.getImage(nextIndex10));
+                result.checkAnswer(input10.getText(), nextIndex10);
                 menubox.setSubMenu(gamePage11);
             });
 
@@ -330,13 +330,13 @@ public class Main extends Application {
             TextField finalInput = new TextField();
             SubMenu finalGamePage = new SubMenu(data.getImage(finalIndex), finalInput, finalEnter);
             enterInput11.setOnMouseClicked(event1 -> {
-                result.checkAnswer(input11.getText(), data.getImage(nextIndex11));
+                result.checkAnswer(input11.getText(), nextIndex11);
                 menubox.setSubMenu(finalGamePage);
             });
 
             finalEnter.setOnMouseClicked(event1 -> {
                 Label resultLabel = new Label(result.getWinner());
-                result.checkAnswer(finalInput.getText(), data.getImage(finalIndex));
+                result.checkAnswer(finalInput.getText(), finalIndex);
                 SubMenu resultPage = new SubMenu(resultLabel, goMenu);
                 menubox.setSubMenu(resultPage);
             });

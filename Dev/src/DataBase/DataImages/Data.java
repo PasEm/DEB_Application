@@ -18,7 +18,7 @@ public class Data {
         Image im5 = new Image(getClass().getResourceAsStream("История.png"));
         Image im6 = new Image(getClass().getResourceAsStream("Отрезок.png"));
         Image im7 = new Image(getClass().getResourceAsStream("Арбуз.jpg"));
-        Image im8 = new Image(getClass().getResourceAsStream("Косточка.jpg"));
+        Image im8 = new Image(getClass().getResourceAsStream("Кисточка.jpg"));
         Image im9 = new Image(getClass().getResourceAsStream("Задача.jpg"));
         Image im10 = new Image(getClass().getResourceAsStream("Господин.jpg"));
         Image im11 = new Image(getClass().getResourceAsStream("Карлсон.jpg"));
@@ -48,7 +48,7 @@ public class Data {
         answers[4] = "история";
         answers[5] = "отрезок";
         answers[6] = "арбуз";
-        answers[7] = "косточка";
+        answers[7] = "кисточка";
         answers[8] = "задача";
         answers[9] = "господин";
         answers[10] = "карлсон";

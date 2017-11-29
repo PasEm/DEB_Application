@@ -101,7 +101,19 @@ MenuItem enterInput1 = new MenuItem("Ввод ответа");
                             i++;
                         }
                         */
-
+                            if (players[0].getScore() > players[1].getScore()){
+                                            winner = "Счет игрока " + players[0].getName() + " : " + players[0].getScore().toString() + " балл(ов)";
+                                            winner += "\n" + "Счет игрока " + players[1].getName() + " : " + players[1].getScore().toString() + " балл(ов)";
+                                            winner += "\n" + "Победил(а) " + players[0].getName() + ", ваш результат: " + players[0].getScore().toString() + " балл(ов)";
+                                        } else{
+                                            if (players[0].getScore() < players[1].getScore()) {
+                                                winner = "Счет игрока " + players[0].getName() + " : " + players[0].getScore().toString() + " балл(ов)";
+                                                winner += "\n" + "Счет игрока " + players[1].getName() + " : " + players[1].getScore().toString() + " балл(ов)";
+                                                winner += "\n" + "Победил(а) " + players[1].getName() + ", ваш результат: " + players[1].getScore().toString() + " балл(ов)";
+                                            } else {
+                                                    winner = "\n" + "Итог игры - ничья: " + players[0].getName() + " и " + players[1].getName() + " набрали " + players[0].getScore().toString() + " балл(а)";
+                                            }
+                                        }
 
 
                         int nextIndex = random.nextInt(1000000) % data.getAnswerLength();
