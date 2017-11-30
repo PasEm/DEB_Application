@@ -1,0 +1,129 @@
+int i = 0;
+            Iterator<Image> question = data.answer.keySet().iterator();
+            while(question.hasNext()) {
+                i++;
+                MenuItem firstEnterInput = new MenuItem("Ввод ответа");
+                    TextField firstInput = new TextField("Введите ваш ответ");
+                    Image firstQuestionImage = question.next();
+                    SubMenu firstGamePage = new SubMenu(firstQuestionImage, firstInput, firstEnterInput);
+                if (i % 2 == 1) {
+                    i++;
+                    menubox.setSubMenu(firstGamePage);
+                    result.checkAnswer(data, firstInput.getText(), firstQuestionImage);
+                    firstEnterInput.setOnMouseClicked(event1 -> {
+                        MenuItem enterInput = new MenuItem("Ввод ответа");
+                        TextField input = new TextField("Введите ваш ответ");
+                        Image questionImage = question.next();
+                        SubMenu gamePage = new SubMenu(questionImage, input, enterInput);
+                        menubox.setSubMenu(gamePage);
+                        result.checkAnswer(data, input.getText(), questionImage);
+                        enterInput.setOnMouseClicked(event2 -> menubox.setSubMenu(gamePage));
+                    });
+                }
+                final int index = i;
+                if (index == data.answer.size()){
+                    Label resultLabel = new Label(result.getWinner());
+                    SubMenu resultPage = new SubMenu(resultLabel, goMenu);
+                    enterInput.setOnMouseClicked(event3 -> menubox.setSubMenu(resultPage));
+                }
+            }
+
+
+
+
+    /* for (Map.Entry<Image, String> question : data.answer.entrySet()){
+                   // timer.scheduleAtFixedRate(timerTask, 5000, 1);
+                    MenuItemSmall enterInput = new MenuItemSmall("Ввод ответа");
+                    TextField input = new TextField("Введите ваш ответ");
+                    SubMenu gamePage = new SubMenu(question.getKey(), input, enterInput);
+                    menubox.setSubMenu(gamePage);
+                    result.checkAnswer(input.getText(), question.getKey());
+                    //continue;
+                }*/
+
+
+
+
+
+MenuItem enterInput1 = new MenuItem("Ввод ответа");
+            TextField input1 = new TextField("Введите ваш ответ");
+            SubMenu gamePage1 = new SubMenu(data.images[0], input1, enterInput1);
+            menubox.setSubMenu(gamePage1);
+            result.checkAnswer(data, input1.getText(), data.images[0]);
+            for (int i = 1; i < data.answers.length; i++){
+               // MenuItem enterInput = new MenuItem("Ввод ответа");
+                TextField input = new TextField("Введите ваш ответ");
+                SubMenu gamePage = new SubMenu(data.images[i], input, enterInput1);
+                //if (i == 1) {
+                 //   enterInput1.setOnMouseClicked(event1 -> menubox.setSubMenu(gamePage));
+                 //   result.checkAnswer(data, input.getText(), data.images[i]);
+                //} else {
+                    if (i != data.answers.length - 1) {
+                        enterInput1.setOnMouseClicked(event1 -> menubox.setSubMenu(gamePage));
+                        result.checkAnswer(data, input.getText(), data.images[i]);
+                    } else {
+                        Label resultLabel = new Label(result.getWinner());
+                        SubMenu resultPage = new SubMenu(resultLabel, goMenu);
+                        enterInput1.setOnMouseClicked(event3 -> menubox.setSubMenu(resultPage));
+                //    }
+                }
+            }
+
+
+
+
+
+            /* Label name = new Label(); //// - требует доработки в дизайне
+                    name.setText("D  E  B");// текст
+                    name.setTranslateX(760);// координты текста
+                    name.setTranslateY(-50);
+                    name.setFont(Font.font("Showcard gothic", FontWeight.BOLD, 150)); // шрифт и размер шрифта
+                    name.setTextFill(Color.DARKGOLDENROD);
+                    name.setScaleX(1);// толщина
+                    name.setScaleY(1);
+                    */
+            //root.getChildren().addAll(name);
+
+
+
+
+
+           /* for (int i = 0; i < data.getAnswerLength() - 2; ){
+                            MenuItemSmall enterInput = new MenuItemSmall("Ввод ответа");
+                            TextField input = new TextField("Введите ваш ответ");
+                            SubMenu gamePage = new SubMenu(data.getImage(i), input, enterInput);
+                            menubox.setSubMenu(gamePage);
+                            while (!data.getChecker()) {
+                                enterInput.setOnMouseClicked(event1 -> data.changeAccess());
+                            }
+                            result.checkAnswer(input.getText(), data.getImage(i));
+                            data.changeAccess();
+                            i++;
+                        }
+                        */
+
+
+
+                        int nextIndex = random.nextInt(1000000) % data.getAnswerLength();
+                                    MenuItemSmall currentEnter = new MenuItemSmall("Ввод ответа");;
+                                    TextField currentInput = new TextField("Введите ваш ответ");;
+                                    SubMenu currentPage;
+
+                                    result.initPlayers(player.getText());
+                                    for (int i = 0; i < data.getAnswerLength() - 1;){
+                                        if (i == 0) {
+                                            currentEnter = new MenuItemSmall("Ввод ответа");
+                                            currentInput = new TextField("Введите ваш ответ");
+                                        } else {
+                                            currentPage = new SubMenu(data.getImage(nextIndex), currentInput, currentEnter);
+                                            menubox.setSubMenu(currentPage);
+                                        }
+                                        TextField nextInput = currentInput;
+                                        nextIndex = random.nextInt(1000000) % data.getAnswerLength();
+                                        currentEnter.setOnMouseClicked(event1 -> data.changeCheck());
+                                        if (data.getCheck()){
+                                            data.changeCheck();
+                                            result.checkAnswer(nextInput.getText(), data.getImage(nextIndex));
+                                            i++;
+                                        }
+                                    }
