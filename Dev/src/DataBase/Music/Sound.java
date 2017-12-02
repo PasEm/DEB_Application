@@ -30,7 +30,7 @@ public class Sound {
     public void play(){
         playing = true;
         clip.setFramePosition(0);
-        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void stop() {
