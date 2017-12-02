@@ -1,16 +1,16 @@
 package DataBase;
 
-public class Player {
+class Player {
     private String name;
     private int score;
 
-    public Player(String name, int index){
+    Player(String name, int index){
         this.score = 0;
         setName(name, index);
     }
 
-    public void setName(String s, int index) {
-        StringBuffer name = new StringBuffer();
+    private void setName(String s, int index) {
+        StringBuilder name = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
             name.append(s.charAt(i));
         }
@@ -26,23 +26,20 @@ public class Player {
             name.delete(16, name.length());
         }
         if (name.length() == 0) {
-            name.append("Player").append(index);
+            name.append("Player").append(++index);
         }
-        this.name = "";
-        for (int i = 0; i < name.length(); i++) {
-            this.name += name.charAt(i);
-        }
-}
+        this.name = name.toString();
+    }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public Integer getScore() {
+    Integer getScore() {
         return score;
     }
 
-    public void updateScore(){
+    void updateScore(){
             score++;
         }
 }
