@@ -2,15 +2,17 @@ package DataBase.Image;
 
 import javafx.scene.image.Image;
 
+import java.util.LinkedList;
+import java.util.Random;
+
 public class DataImages {
     private static final DataImages instance;
     private final int COUNT = 12;
-    private boolean check;
     private Image[] images = new Image[COUNT + 3];
     private String[] answers = new String[COUNT];
+    private int[] questions = new int[COUNT];
 
     private DataImages(){
-        check = false;
         images[0] = new Image(getClass().getResourceAsStream("География.png"));
         images[1] = new Image(getClass().getResourceAsStream("Геометрия.png"));
         images[2] = new Image(getClass().getResourceAsStream("Русский Язык.png"));
@@ -48,14 +50,6 @@ public class DataImages {
         return instance;
     }
 
-    public void changeCheck(){
-        check = !check;
-    }
-
-    public Boolean getCheck() {
-        return check;
-    }
-
     public Image getImage(int i) {
         return images[i];
     }
@@ -64,11 +58,26 @@ public class DataImages {
         return answers[i];
     }
 
-    public int getAnswerLength(){
-        return answers.length;
+    public int getQuestions(int index){
+        return questions[index];
     }
 
     public int getImagesLength(){
         return images.length;
+    }
+
+    public void randomize(){
+        final Random random = new Random();
+        LinkedList<Integer> index = new LinkedList<>();
+        int count = COUNT;
+        for (int i = 0; i < questions.length; i++){
+            index.add(i);
+        }
+        for (int i = 0; i < questions.length; i++){
+            int position = random.nextInt(count);
+            questions[i] = index.get(position);
+            index.remove(position);
+            count--;
+        }
     }
 }
