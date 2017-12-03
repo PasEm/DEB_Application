@@ -67,14 +67,6 @@ public class Data {
         return COUNT;
     }
 
-    public static Image[] getImages(){
-        return images;
-    }
-
-    public static String[] getAnswers(){
-        return answers;
-    }
-
     public void changeCheck(){
         check = !check;
     }
@@ -83,11 +75,11 @@ public class Data {
         return check;
     }
 
-    public Image getImage(int i) {
+    public static Image getImage(int i) {
         return images[i];
     }
 
-    public String getAnswer(int i) {
+    public static String getAnswer(int i) {
         return answers[i];
     }
 

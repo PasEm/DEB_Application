@@ -36,12 +36,30 @@ public class Score {
             winner = name + ", ваш результат: " + players[0].getScore().toString();
         } else{
             if (players[0].getScore() > players[1].getScore()){
-                winner = "Победил(а) " + players[0].getName() + ", ваш результат: " + players[0].getScore().toString() + " балл(ов)";
+                winner = "Победил(а) " + players[0].getName() + ", ваш результат: " + players[0].getScore().toString() + " очк";
+                if(players[0].getScore() / 10 != 1 && players[0].getScore() % 10 == 1){
+                    winner += "о";
+                } else {
+                    if(players[0].getScore() / 10 != 1 && (players[0].getScore() % 10 == 2 || players[0].getScore() % 10 == 3 || players[0].getScore() % 10 == 4)){
+                        winner += "а";
+                    } else {
+                        winner += "ов";
+                    }
+                }
             } else{
                 if (players[0].getScore() < players[1].getScore()) {
-                    winner = "Победил(а) " + players[1].getName() + ", ваш результат: " + players[1].getScore().toString() + " балл(ов)";
+                    winner = "Победил(а) " + players[1].getName() + ", ваш результат: " + players[1].getScore().toString() + " очк";
                 } else{
-                    winner = "Итог игры - ничья: " + players[0].getName() + " и " + players[1].getName() + " набрали " + players[0].getScore().toString() + " балл(а)";
+                    winner = "Итог игры - ничья: " + players[1].getName() + " и " + players[1].getName() + " набрали " + players[1].getScore().toString() + " очк";
+                }
+                if(players[1].getScore() / 10 != 1 && players[1].getScore() % 10 == 1){
+                    winner += "о";
+                } else {
+                    if(players[1].getScore() / 10 != 1 && (players[1].getScore() % 10 == 2 || players[1].getScore() % 10 == 3 || players[1].getScore() % 10 == 4)){
+                        winner += "а";
+                    } else {
+                        winner += "ов";
+                    }
                 }
             }
         }
@@ -74,5 +92,9 @@ public class Score {
 
     public static Score getScore(){
         return instance;
+    }
+
+    public Player getPlayer(int i) {
+        return players[i];
     }
 }

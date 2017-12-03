@@ -1,12 +1,12 @@
 package sample;
 
-public class NUMBER {
+public class Number {
     private static int number = 0;
 
-    public NUMBER() {
+    public Number() {
     }
 
-    public NUMBER(int number) {
+    public Number(int number) {
         this.number = number;
     }
 
