@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class DataImages {
     private static final DataImages instance;
-    private final int COUNT = 12;
+    private final int COUNT = 32;
     private Image[] images = new Image[COUNT + 3];
     private String[] answers = new String[COUNT];
     private int[] questions = new int[COUNT];

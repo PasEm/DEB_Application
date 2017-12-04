@@ -29,8 +29,7 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
         DataImages dataImages = DataImages.getDataImages();
         Sound sound = Sound.getSound();
@@ -196,7 +195,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private static class MenuItem extends StackPane {
+    private static class MenuItem extends StackPane{
 
         MenuItem(String name){
             Rectangle bq = new Rectangle(900, 90, Color.WHITE);
@@ -236,7 +235,7 @@ public class Main extends Application {
             answer.setPromptText("Введите ваш ответ");
             answer.setFont(Font.font("Arial", FontWeight.BOLD, 40));
             answer.setMinHeight(90);
-            score.setFont(Font.font("Arial", FontWeight.BOLD, 100));
+            score.setFont(Font.font("Arial", FontWeight.BOLD, 60));
             score.setTextFill(Color.WHITE);
             score.setTranslateX(-175);
             score.setTranslateY(25);
@@ -389,6 +388,7 @@ public class Main extends Application {
                 bq.setFill(Color.WHITE);
             });
         }
+
     }
 
     public static void main(String[] args) {
