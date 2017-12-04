@@ -82,11 +82,14 @@ public class Main extends Application {
         MenuItem exitNo = new MenuItem("Нет");
         SubMenu exitPage = new SubMenu(new Label("Вы уверены, что хотите выйти?"), exitYes, exitNo);
 
-        TextField player = new TextField("Player");
+        TextField player = new TextField();
+        player.setPromptText("Player");
         SubMenu enterName = new SubMenu(new Label("Введите имя игрока:"), player, backSingle, enterSingle);
 
-        TextField player1 = new TextField("Player1");
-        TextField player2 = new TextField("Player2");
+        TextField player1 = new TextField();
+        TextField player2 = new TextField();
+        player1.setPromptText("Player1");
+        player2.setPromptText("Player2");
         SubMenu enterNames = new SubMenu(new Label("Введите имена игроков:"), player1, player2, backMulty, enterMulty);
 
         ImageView question = new ImageView();
@@ -105,7 +108,8 @@ public class Main extends Application {
         backStartgame.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
         singleplay.setOnMouseClicked(event -> {
             menubox.setSubMenu(enterName);
-            player.setText("Player");
+            player.setFocusTraversable(false);
+            player.clear();
         });
         enterSingle.setOnMouseClicked(event -> {
             gameScore.newGame(player.getText());
@@ -116,8 +120,10 @@ public class Main extends Application {
         backSingle.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
         multiplay.setOnMouseClicked(event -> {
             menubox.setSubMenu(enterNames);
-            player1.setText("Player1");
-            player2.setText("Player2");
+            player1.setFocusTraversable(false);
+            player1.clear();
+            player2.setFocusTraversable(false);
+            player2.clear();
         });
         enterMulty.setOnMouseClicked(event -> {
             gameScore.newGame(player1.getText(), player2.getText());
@@ -139,7 +145,7 @@ public class Main extends Application {
             game.clearField();
             if(gameScore.getQuestionIndex() != 10) {
                 question.setImage(dataImages.getImage(dataImages.getQuestions(gameScore.getQuestionIndex())));
-                game.changeImage(question, gameScore.getName() + " ваш текущий счёт : " + gameScore.getPlayerScore());
+                game.changeImage(question, gameScore.getLastName() + ", ваш текущий счёт : " + gameScore.getLastScore());
             } else {
                 resultLabel.setText(gameScore.getWinner());
                 menubox.endGame(resultPage);
@@ -250,7 +256,7 @@ public class Main extends Application {
         }
 
         void clearScore(){
-            this.score.setText("0");
+            this.score.setText("Ваш текущий счёт : 0");
         }
     }
 
@@ -265,13 +271,6 @@ public class Main extends Application {
             bq.setOpacity(0.4);
             getChildren().addAll(bq, submenu);
         }
-
-       /* MenuBox(Game game){
-            MenuBox.game = game;
-            Rectangle bq = new Rectangle(1920, 1080, Color.LIGHTBLUE);
-            bq.setOpacity(0.4);
-            getChildren().addAll(bq, game);
-        }*/
 
         void setSubMenu(SubMenu submenu){
             getChildren().remove(MenuBox.submenu);

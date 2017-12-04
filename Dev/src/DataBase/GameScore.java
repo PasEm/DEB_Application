@@ -34,11 +34,11 @@ public class GameScore {
         return playerIndex;
     }
 
-    public String getPlayerScore(){
+    public String getLastScore(){
         return players[getPlayerIndex()].getScore().toString();
     }
 
-    public String getName(){
+    public String getLastName(){
         return players[getPlayerIndex()].getName();
     }
 
@@ -53,15 +53,15 @@ public class GameScore {
             winner = name + ", ваш результат: " + players[0].getScore().toString();
         } else {
             if (players[0].getScore() == players[1].getScore()){
-                winner = "Итог игры - ничья: " + players[0].getName() + " и " + players[1].getName() + " набрали " + players[0].getScore().toString() + " балл(а)";
+                winner = "Итог игры - ничья: " + players[0].getName() + " и " + players[1].getName() + " , ваш счёт : " + players[0].getScore().toString();
             } else {
                 for (int i = 0; i < playerCount; i++) {
-                    winner += "Счет игрока " + players[i].getName() + " : " + players[i].getScore().toString() + " балл(ов)" + "\n";
+                    winner += "Счет игрока " + players[i].getName() + " : " + players[i].getScore().toString() + "\n";
             }
                 if (players[0].getScore() > players[1].getScore()) {
-                    winner += "Победил(а) " + players[0].getName() + ", ваш результат: " + players[0].getScore().toString() + " балл(ов)";
+                    winner += "Победил(а) " + players[0].getName() + ", ваш результат: " + players[0].getScore().toString();
                 } else {
-                    winner += "Победил(а) " + players[1].getName() + ", ваш результат: " + players[1].getScore().toString() + " балл(ов)";
+                    winner += "Победил(а) " + players[1].getName() + ", ваш результат: " + players[1].getScore().toString();
                 }
             }
         }
