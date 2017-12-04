@@ -150,7 +150,7 @@ public class Main extends Application {
             game.clearField();
             if(gameScore.getQuestionIndex() != 10) {
                 question.setImage(dataImages.getImage(dataImages.getQuestions(gameScore.getQuestionIndex())));
-                game.changeImage(question, gameScore.getLastName() + ", ваш текущий счёт : " + gameScore.getLastScore());
+                game.changeImage(question, gameScore.getLastName() + ", ваш счёт : " + gameScore.getLastScore());
             } else {
                 resultLabel.setText(gameScore.getWinner());
                 menubox.endGame(resultPage);
@@ -225,7 +225,7 @@ public class Main extends Application {
         VBox vBox = new VBox();
         HBox hBox = new HBox();
         TextField answer = new TextField();
-        Label score = new Label("Ваш текущий счёт : 0");
+        Label score = new Label("Ваш счёт : 0");
 
         Game(ImageView img, TextField field, MenuItemSmall item){
             view = img;
@@ -262,7 +262,7 @@ public class Main extends Application {
         }
 
         void clearScore(){
-            this.score.setText("Ваш текущий счёт : 0");
+            this.score.setText("Ваш счёт : 0");
         }
     }
 

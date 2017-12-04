@@ -12,7 +12,7 @@ public class Sound {
 
     private Sound() {
         try {
-            File soundFile = new File("C:\\Users\\bloof\\Desktop\\Dev\\src\\DataBase\\Music\\luciano_frolic.wav");
+            File soundFile = new File("C:\\Users\\bloof\\Desktop\\DEB_Application\\src\\DataBase\\Music\\luciano_frolic.wav");
             AudioInputStream stream = AudioSystem.getAudioInputStream(soundFile);
             playing = false;
             clip = AudioSystem.getClip();
