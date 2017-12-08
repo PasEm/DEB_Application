@@ -1,7 +1,5 @@
 package DataBase;
 
-import DataBase.Image.DataImages;
-
 public class GameScore {
     private static final GameScore instance;
     private Player[] players;

@@ -1,8 +1,8 @@
 package sample;
 
 import DataBase.GameScore;
-import DataBase.Image.DataImages;
-import DataBase.Music.Sound;
+import DataBase.DataImages;
+import DataBase.Sound;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
@@ -29,7 +29,7 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage)  {
         Pane root = new Pane();
         DataImages dataImages = DataImages.getDataImages();
         Sound sound = Sound.getSound();
@@ -76,12 +76,13 @@ public class Main extends Application {
         MenuItem goMenu = new MenuItem("Выход в главное меню");
 
         SubMenu mainMenu = new SubMenu(startGame, settings, help, credits, exitGame);
-        SubMenu helpPage = new SubMenu(new Label("Описание игры, помощь и прочее"), backHelp);
+        Label info = new Label("В данной игре вам нужно отгадывать ребусы, чтобы зарабатывать очки.\nМаксимальная длина имени - 15 символов");
+        SubMenu helpPage = new SubMenu(info, backHelp);
 
-        Label authors = new Label("В разработке игры участвовали:\nБулат Каюмов\nЭмиль Пашаев\nКакая-то красотка");
+        Label authors = new Label("В разработке игры участвовали:\nБулат Каюмов\nЭмиль Пашаев\nДиляра Мухамедшина");
         SubMenu creditsPage = new SubMenu(authors, backCredits);
 
-        SubMenu settingsPage = new SubMenu(new Label("Настройки"), switchMusic, backSettings);
+        SubMenu settingsPage = new SubMenu(new Label("Настройки игры"), switchMusic, backSettings);
 
         MenuItem exitYes = new MenuItem("Да");
         MenuItem exitNo = new MenuItem("Нет");
@@ -301,7 +302,7 @@ public class Main extends Application {
 
         SubMenu(MenuItem...items){
             setSpacing(30);
-            setTranslateX(510);
+            setTranslateX(500);
             setTranslateY(400);
             for(MenuItem item : items){
                 getChildren().addAll(item);
@@ -310,12 +311,13 @@ public class Main extends Application {
 
         SubMenu(Label text, MenuItem...items){
             setSpacing(30);
-            setTranslateX(510);
+            setTranslateX(500);
             setTranslateY(400);
             text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
             text.setTextFill(Color.LIGHTYELLOW);
             text.setMaxWidth(1000);
             text.setWrapText(true);
+            text.setAlignment(Pos.CENTER);
             getChildren().addAll(text);
             for (MenuItem item : items) {
                 getChildren().addAll(item);
@@ -325,13 +327,14 @@ public class Main extends Application {
         SubMenu(Label text, TextField field, MenuItemSmall...items){
             HBox box = new HBox();
             setSpacing(30);
-            setTranslateX(510);
+            setTranslateX(500);
             setTranslateY(400);
             field.maxWidth(300);
             field.setFont(Font.font("Arial", FontWeight.BOLD, 40));
             field.setMinHeight(90);
             text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
             text.setTextFill(Color.LIGHTYELLOW);
+            text.setAlignment(Pos.CENTER);
             text.setMaxWidth(1000);
             text.setWrapText(true);
             box.setSpacing(30);
@@ -355,6 +358,7 @@ public class Main extends Application {
             text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
             text.setTextFill(Color.LIGHTYELLOW);
             text.setMaxWidth(1000);
+            text.setAlignment(Pos.CENTER);
             text.setWrapText(true);
             box.setSpacing(30);
             getChildren().addAll(text, field1, field2, box);
