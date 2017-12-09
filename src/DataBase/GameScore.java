@@ -45,24 +45,24 @@ public class GameScore {
     }
 
     public String getWinner() {
-        String winner = "";
+        StringBuilder winner = new StringBuilder();
         if (playerCount == 1) {
-            winner = players[0].getName() + ", ваш результат: " + players[0].getScore().toString();
+            winner.append(players[0].getName()).append(", ваш результат: ").append(players[0].getScore().toString());
         } else {
-            if (players[0].getScore() == players[1].getScore()){
-                winner = "Итог игры - ничья: " + players[0].getName() + " и " + players[1].getName() + " , ваш счёт : " + players[0].getScore().toString();
+            if (players[0].getScore().equals(players[1].getScore())){
+                winner.append("Итог игры - ничья: ").append(players[0].getName() + " и ").append("\n").append(players[1].getName()).append("Итоговый счёт : ").append(players[0].getScore().toString());
             } else {
                 for (int i = 0; i < playerCount; i++) {
-                    winner += "Счет игрока " + players[i].getName() + " : " + players[i].getScore().toString() + "\n";
+                    winner.append("Счет игрока ").append(players[i].getName()).append(" : ").append(players[i].getScore().toString()).append("\n");
                 }
                 if (players[0].getScore() > players[1].getScore()) {
-                    winner += "Победил(а) " + players[0].getName() + ", ваш результат: " + players[0].getScore().toString();
+                    winner.append("Победил(а) ").append(players[0].getName()).append(", ваш результат: ").append(players[0].getScore().toString());
                 } else {
-                    winner += "Победил(а) " + players[1].getName() + ", ваш результат: " + players[1].getScore().toString();
+                    winner.append("Победил(а) ").append(players[1].getName()).append(", ваш результат: ").append(players[1].getScore().toString());
                 }
             }
         }
-        return winner;
+        return winner.toString();
     }
 
     public void newGame(String... names) {

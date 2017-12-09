@@ -309,7 +309,7 @@ public class Main extends Application {
             }
         }
 
-        SubMenu(Label text, MenuItem...items){
+        SubMenu(Label text, MenuItem... items){
             setSpacing(30);
             setTranslateX(500);
             setTranslateY(400);
@@ -324,7 +324,7 @@ public class Main extends Application {
             }
         }
 
-        SubMenu(Label text, TextField field, MenuItemSmall...items){
+        SubMenu(Label text, TextField field, MenuItemSmall... items){
             HBox box = new HBox();
             setSpacing(30);
             setTranslateX(500);
@@ -344,7 +344,7 @@ public class Main extends Application {
             }
         }
 
-        SubMenu(Label text, TextField field1, TextField field2, MenuItemSmall...items){
+        SubMenu(Label text, TextField field1, TextField field2, MenuItemSmall... items){
             HBox box = new HBox();
             setSpacing(30);
             setTranslateX(510);
