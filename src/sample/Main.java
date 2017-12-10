@@ -119,7 +119,6 @@ public class Main extends Application {
         });
         enterSingle.setOnMouseClicked(event -> {
             gameScore.newGame(player.getText());
-            dataImages.randomize();
             question.setImage(dataImages.getImage(dataImages.getQuestions(gameScore.getQuestionIndex())));
             menubox.beginGame(game);
         });
@@ -133,7 +132,6 @@ public class Main extends Application {
         });
         enterMulty.setOnMouseClicked(event -> {
             gameScore.newGame(player1.getText(), player2.getText());
-            dataImages.randomize();
             question.setImage(dataImages.getImage(dataImages.getQuestions(gameScore.getQuestionIndex())));
             menubox.beginGame(game);
         });
@@ -149,7 +147,8 @@ public class Main extends Application {
         enter.setOnMouseClicked(event -> {
             gameScore.checkAnswer(input.getText(), dataImages.getQuestions(gameScore.getQuestionIndex()));
             game.clearField();
-            if(gameScore.getQuestionIndex() != 10) {
+            int count = (gameScore.getPlayerCount() == 1) ? 8 : 12;
+            if(gameScore.getQuestionIndex() != count) {
                 question.setImage(dataImages.getImage(dataImages.getQuestions(gameScore.getQuestionIndex())));
                 game.changeImage(question, gameScore.getLastName() + ", ваш счёт : " + gameScore.getLastScore());
             } else {

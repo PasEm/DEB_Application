@@ -22,7 +22,7 @@ public class GameScore {
 
     public void checkAnswer(String input, int question) {
         if (input.toLowerCase().equals(data.getAnswer(question))) {
-            players[(playerCount == 1) ? 0 : playerIndex % 2].updateScore();
+            players[playerIndex].updateScore();
         }
         playerIndex = (playerCount == 1) ? 0 : (playerIndex == 0) ? 1 : 0;
         questionIndex++;
@@ -44,13 +44,17 @@ public class GameScore {
         return questionIndex;
     }
 
+    public int getPlayerCount() {
+        return playerCount;
+    }
+
     public String getWinner() {
         StringBuilder winner = new StringBuilder();
         if (playerCount == 1) {
             winner.append(players[0].getName()).append(", ваш результат: ").append(players[0].getScore().toString());
         } else {
             if (players[0].getScore().equals(players[1].getScore())){
-                winner.append("Итог игры - ничья: ").append(players[0].getName() + " и ").append("\n").append(players[1].getName()).append("Итоговый счёт : ").append(players[0].getScore().toString());
+                winner.append("Итог игры - ничья").append("\n Счёт игроков: ").append(players[0].getScore().toString());
             } else {
                 for (int i = 0; i < playerCount; i++) {
                     winner.append("Счет игрока ").append(players[i].getName()).append(" : ").append(players[i].getScore().toString()).append("\n");
@@ -69,6 +73,7 @@ public class GameScore {
         for (int i = 0; i < playerCount; i++) {
             players[i] = null;
         }
+        data.randomize();
         playerCount = playerIndex = questionIndex = 0;
         String name[] = new String[2];
         for (String input : names) {

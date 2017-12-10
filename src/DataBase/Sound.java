@@ -19,12 +19,15 @@ public class Sound {
         }
         catch (UnsupportedAudioFileException e){
             e.printStackTrace();
+            System.out.println("Неверный формат входного аудиофайла. Перезапустите приложение, проверив формат аудиофайла");
         }
         catch (LineUnavailableException e){
             e.printStackTrace();
+            System.out.println("Невозможно использовать данный аудиофайл для прослушивания. Переустановите приложение");
         }
         catch (IOException e){
             e.printStackTrace();
+            System.out.println("Ошибка при загрузке файла, проверьте целостность системы. Перезапустите приложение, проверив наличие аудиофайла");
         }
     }
 
