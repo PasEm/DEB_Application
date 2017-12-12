@@ -18,16 +18,16 @@ public class Sound {
             clip.open(stream);
         }
         catch (UnsupportedAudioFileException e){
-            e.printStackTrace();
-            System.out.println("Неверный формат входного аудиофайла. Перезапустите приложение, проверив формат аудиофайла");
+            System.err.println("Неверный формат входного аудиофайла. Перезапустите приложение, проверив формат аудиофайла");
+            throw new RuntimeException(e);
         }
         catch (LineUnavailableException e){
-            e.printStackTrace();
-            System.out.println("Невозможно использовать данный аудиофайл для прослушивания. Переустановите приложение");
+            System.err.println("Невозможно использовать данный аудиофайл для прослушивания. Переустановите приложение");
+            throw new RuntimeException(e);
         }
         catch (IOException e){
-            e.printStackTrace();
-            System.out.println("Ошибка при загрузке файла, проверьте целостность системы. Перезапустите приложение, проверив наличие аудиофайла");
+            System.err.println("Ошибка при загрузке файла, проверьте целостность системы. Перезапустите приложение, проверив наличие аудиофайла");
+            throw new RuntimeException(e);
         }
     }
 
