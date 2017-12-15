@@ -37,19 +37,18 @@ public class Main extends Application {
         dataImages.randomize();
         ImageView img = new ImageView(dataImages.getImage(dataImages.getImagesLength() - 1));
         Image ico = dataImages.getImage(dataImages.getImagesLength() - 1);
-        img.setTranslateX(60);
-        img.setFitWidth(1800);
-        img.setFitHeight(1080);
+        img.setFitWidth(1500);
+        img.setFitHeight(900);
 
         ImageView imgItis = new ImageView(dataImages.getImage(dataImages.getImagesLength() - 2));
-        imgItis.setTranslateX(1740);
-        imgItis.setTranslateY(960);
+        imgItis.setTranslateX(1380);
+        imgItis.setTranslateY(780);
         imgItis.setFitWidth(120);
         imgItis.setFitHeight(120);
 
         ImageView img11702 = new ImageView(dataImages.getImage(dataImages.getImagesLength() - 3));
-        img11702.setTranslateX(1620);
-        img11702.setTranslateY(960);
+        img11702.setTranslateX(1260);
+        img11702.setTranslateY(780);
         img11702.setFitWidth(120);
         img11702.setFitHeight(120);
         root.getChildren().addAll(img, imgItis, img11702);
@@ -76,10 +75,10 @@ public class Main extends Application {
         MenuItem goMenu = new MenuItem("Выход в главное меню");
 
         SubMenu mainMenu = new SubMenu(startGame, settings, help, credits, exitGame);
-        Label info = new Label("В данной игре вам нужно отгадывать ребусы, чтобы зарабатывать очки.\nМаксимальная длина имени - 15 символов");
+        Label info = new Label("Отгадывайте ребусы, чтобы зарабатывать очки.\nМаксимальная длина имени - 15 символов");
         SubMenu helpPage = new SubMenu(info, backHelp);
 
-        Label authors = new Label("В разработке игры участвовали:\nБулат Каюмов\nЭмиль Пашаев\nДиляра Мухамедшина");
+        Label authors = new Label("Разработчики игры:\nБулат Каюмов\nЭмиль Пашаев\nДиляра Мухамедшина");
         SubMenu creditsPage = new SubMenu(authors, backCredits);
 
         SubMenu settingsPage = new SubMenu(new Label("Настройки игры"), switchMusic, backSettings);
@@ -105,11 +104,11 @@ public class Main extends Application {
 
         Label resultLabel = new Label();
         SubMenu resultPage = new SubMenu(resultLabel, goMenu);
+        SubMenu numberOfPlayers = new SubMenu(singleplay, multiplay, backToMenu);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
         MenuBox menubox = new MenuBox(mainMenu);
-        SubMenu numberOfPlayers = new SubMenu(singleplay, multiplay, backToMenu);
         startGame.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
         backStartgame.setOnMouseClicked(event -> menubox.setSubMenu(numberOfPlayers));
         singleplay.setOnMouseClicked(event -> {
@@ -168,8 +167,16 @@ public class Main extends Application {
         backToMenu.setOnMouseClicked(event -> menubox.setSubMenu(mainMenu));
         goMenu.setOnMouseClicked(event1 -> menubox.setSubMenu(mainMenu));
 
+        Label name = new Label("DEB");
+        name.setTranslateX(250);
+        name.setTranslateY(-845);
+        name.setFont(Font.font("Showcard gothic", FontWeight.BOLD, 150));
+        name.setTextFill(Color.DARKORANGE);
+        name.setScaleX(1);
+        name.setScaleY(1);
+        mainMenu.getChildren().addAll(name);
         root.getChildren().addAll(menubox);
-        Scene scene = new Scene(root, 1920, 1080);
+        Scene scene = new Scene(root, 1500, 900);
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.SPACE) {
@@ -198,11 +205,11 @@ public class Main extends Application {
     private static class MenuItem extends StackPane{
 
         MenuItem(String name){
-            Rectangle bq = new Rectangle(900, 90, Color.WHITE);
+            Rectangle bq = new Rectangle(800, 90, Color.WHITE);
             bq.setOpacity(0.5);
             Text text = new Text(name);
             text.setFill(Color.WHITE);
-            text.setFont(Font.font("Arial", FontWeight.BOLD, 50));
+            text.setFont(Font.font("Arial", FontWeight.BOLD, 47));
             setAlignment(Pos.CENTER);
             getChildren().addAll(bq, text);
             FillTransition st = new FillTransition(Duration.seconds(0.5), bq);
@@ -230,21 +237,21 @@ public class Main extends Application {
         Game(ImageView img, TextField field, MenuItemSmall item){
             view = img;
             view.setFitWidth(900);
-            view.setFitHeight(540);
+            view.setFitHeight(500);
+            view.setTranslateY(25);
             answer = field;
             answer.setPromptText("Введите ваш ответ");
             answer.setFont(Font.font("Arial", FontWeight.BOLD, 40));
             answer.setMinHeight(90);
-            score.setFont(Font.font("Arial", FontWeight.BOLD, 60));
+            score.setFont(Font.font("Arial", FontWeight.BOLD, 50));
             score.setTextFill(Color.WHITE);
             score.setTranslateX(-175);
-            score.setTranslateY(25);
+            score.setTranslateY(40);
             score.centerShapeProperty();
             hBox.setSpacing(30);
             hBox.setTranslateX(-30);
             hBox.getChildren().addAll(field, item);
-            vBox.setTranslateY(0);
-            vBox.setTranslateX(510);
+            vBox.setTranslateX(300);
             vBox.setSpacing(60);
             vBox.getChildren().addAll(score, view, hBox);
             getChildren().addAll(vBox);
@@ -273,7 +280,7 @@ public class Main extends Application {
         MenuBox(SubMenu submenu) {
             MenuBox.submenu = submenu;
             setVisible(false);
-            Rectangle bq = new Rectangle(1920, 1080, Color.LIGHTBLUE);
+            Rectangle bq = new Rectangle(1500, 900, Color.LIGHTBLUE);
             bq.setOpacity(0.4);
             getChildren().addAll(bq, submenu);
         }
@@ -301,8 +308,8 @@ public class Main extends Application {
 
         SubMenu(MenuItem...items){
             setSpacing(30);
-            setTranslateX(500);
-            setTranslateY(400);
+            setTranslateX(350);
+            setTranslateY(260);
             for(MenuItem item : items){
                 getChildren().addAll(item);
             }
@@ -310,11 +317,11 @@ public class Main extends Application {
 
         SubMenu(Label text, MenuItem... items){
             setSpacing(30);
-            setTranslateX(500);
-            setTranslateY(400);
-            text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
+            setTranslateX(350);
+            setTranslateY(350);
+            text.setFont(Font.font("Arial", FontPosture.ITALIC, 47));
             text.setTextFill(Color.LIGHTYELLOW);
-            text.setMaxWidth(1000);
+            text.setMaxWidth(800);
             text.setWrapText(true);
             text.setAlignment(Pos.CENTER);
             getChildren().addAll(text);
@@ -326,15 +333,15 @@ public class Main extends Application {
         SubMenu(Label text, TextField field, MenuItemSmall... items){
             HBox box = new HBox();
             setSpacing(30);
-            setTranslateX(500);
-            setTranslateY(400);
+            setTranslateX(350);
+            setTranslateY(300);
             field.maxWidth(300);
-            field.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+            field.setFont(Font.font("Arial", FontWeight.BOLD, 47));
             field.setMinHeight(90);
-            text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
+            text.setFont(Font.font("Arial", FontPosture.ITALIC, 47));
             text.setTextFill(Color.LIGHTYELLOW);
             text.setAlignment(Pos.CENTER);
-            text.setMaxWidth(1000);
+            text.setMaxWidth(800);
             text.setWrapText(true);
             box.setSpacing(30);
             getChildren().addAll(text, field, box);
@@ -346,17 +353,17 @@ public class Main extends Application {
         SubMenu(Label text, TextField field1, TextField field2, MenuItemSmall... items){
             HBox box = new HBox();
             setSpacing(30);
-            setTranslateX(510);
-            setTranslateY(400);
-            field1.maxWidth(485);
-            field2.maxWidth(485);
-            field1.setFont(Font.font("Arial", FontWeight.BOLD, 40));
-            field2.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+            setTranslateX(350);
+            setTranslateY(300);
+            field1.maxWidth(435);
+            field2.maxWidth(435);
+            field1.setFont(Font.font("Arial", FontWeight.BOLD, 45));
+            field2.setFont(Font.font("Arial", FontWeight.BOLD, 45));
             field1.setMinHeight(90);
             field2.setMinHeight(90);
-            text.setFont(Font.font("Arial", FontPosture.ITALIC, 50));
+            text.setFont(Font.font("Arial", FontPosture.ITALIC, 47));
             text.setTextFill(Color.LIGHTYELLOW);
-            text.setMaxWidth(1000);
+            text.setMaxWidth(800);
             text.setAlignment(Pos.CENTER);
             text.setWrapText(true);
             box.setSpacing(30);
@@ -374,7 +381,7 @@ public class Main extends Application {
 
             Text text = new Text(name);
             text.setFill(Color.WHITE);
-            text.setFont(Font.font("Arial", FontWeight.BOLD, 50));
+            text.setFont(Font.font("Arial", FontWeight.BOLD, 47));
 
             setAlignment(Pos.CENTER);
             getChildren().addAll(bq, text);
